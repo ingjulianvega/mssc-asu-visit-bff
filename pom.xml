@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>ingjulianvega.ximic</groupId>
 		<artifactId>mssc-asu-bom</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>mssc-asu-visit-bff</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -16,29 +16,7 @@
 		<docker.image.prefix>ingjulianvega</docker.image.prefix>
 		<!--Set to name of project-->
 		<docker.image.name>mssc-asu-visit-bff</docker.image.name>
-
 	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.cache</groupId>
-			<artifactId>cache-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jms -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jms</artifactId>
-			<version>5.3.6</version>
-		</dependency>
-	</dependencies>
 
 	<build>
 		<plugins>

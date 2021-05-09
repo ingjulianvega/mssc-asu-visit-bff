@@ -39,3 +39,8 @@ visit-bff:
   prefix: 'BFF-VIST:'
   error:
     general: There was an unexpected error. Please try again.
+log4j:
+  logger:
+    org:
+      apache:
+        activemq=DEBUG:

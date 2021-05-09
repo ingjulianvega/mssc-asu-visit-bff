@@ -1,19 +1,23 @@
 package ingjulianvega.ximic.msscasuvisitbff.services;
 
-import ingjulianvega.ximic.msscasuvisitbff.web.model.Visit;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitDto;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitList;
+import ingjulianvega.ximic.msscasuvisitbff.configuration.JmsConfig;
+import ingjulianvega.ximic.msscasuvisitbff.events.*;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
 @Service
 public class VisitBffServiceImpl implements VisitBffService {
+
+    private final JmsTemplate jmsTemplate;
 
     /*private final BillingRepository billingRepository;
     private final BillingMapper billingMapper;
@@ -89,6 +93,68 @@ public class VisitBffServiceImpl implements VisitBffService {
     @Override
     public void updateById(UUID id, Visit visit) {
         log.debug("updateById()...");
+        //Visit
+        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,new UpdateVisitEvent(visit));
+        //System check
+        Optional<SystemCheckList> optSystemCheckList = Optional.of(visit.getSystemCheckList());
+        if( optSystemCheckList.isPresent()){
+            visit.getSystemCheckList()
+                    .systemCheckDtoList
+                    .parallelStream()
+                    .forEach(systemCheckDto -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_SYSTEM_CHECK_QUEUE,new UpdateSystemCheckEvent(systemCheckDto));
+                    });
+        }
+        //Body check
+        Optional<BodyCheckList> optBodyCheckList = Optional.of(visit.getBodyCheckList());
+        if( optBodyCheckList.isPresent()){
+            visit.getBodyCheckList()
+                    .bodyCheckDtoList
+                    .parallelStream()
+                    .forEach(bodyCheckDto -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_BODY_CHECK_QUEUE,new UpdateBodyCheckEvent(bodyCheckDto));
+                    });
+        }
+        //Treatment
+        Optional<TreatmentList> optTreatmentList = Optional.of(visit.getTreatmentList());
+        if( optTreatmentList.isPresent()){
+            visit.getTreatmentList()
+                    .treatmentDtoList
+                    .parallelStream()
+                    .forEach(treatmentDto -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_TREATMENT_QUEUE,new UpdateTreatmentEvent(treatmentDto));
+                    });
+        }
+        //Recommendation
+        Optional<RecommendationList> optRecommendationList = Optional.of(visit.getRecommendationList());
+        if( optRecommendationList.isPresent()){
+            visit.getRecommendationList()
+                    .recommendationDtoList
+                    .parallelStream()
+                    .forEach(recommendationDto -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_RECOMMENDATION_QUEUE,new UpdateRecommendationEvent(recommendationDto));
+                    });
+        }
+        //Remission
+        Optional<RemissionList> optRemissionList = Optional.of(visit.getRemissionList());
+        if( optRemissionList.isPresent()){
+            visit.getRemissionList()
+                    .remissionDtoList
+                    .parallelStream()
+                    .forEach(remissionDto -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_REMISSION_QUEUE,new UpdateRemissionEvent(remissionDto));
+                    });
+        }
+        //Disability
+        Optional<DisabilityList> optDisabilityList = Optional.of(visit.getDisabilityList());
+        if( optDisabilityList.isPresent()){
+            visit.getDisabilityList()
+                    .disabilityDtoList
+                    .parallelStream()
+                    .forEach(disabilityDto -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_DISABILITY_QUEUE,new UpdateDisabilityEvent(disabilityDto));
+                    });
+        }
     }
 
     @Override
