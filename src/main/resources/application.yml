@@ -29,9 +29,10 @@ server:
   servlet:
     context-path: /asu/v1/visit-bff
 #Logging
-#logging:
-#  level:
-#    root: DEBUG
+logging:
+  level:
+    ingjulianvega:
+      ximic: DEBUG
 #Exceptions
 visit-bff:
   success: The operation was successful.
