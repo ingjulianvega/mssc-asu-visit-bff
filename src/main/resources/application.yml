@@ -20,6 +20,9 @@ spring:
   cache:
     jcache:
       config: classpath:ehcache.xml
+  artemis:
+    user: artemis
+    password: simetraehcapa
 #General configuration
 server:
   port: 8111
