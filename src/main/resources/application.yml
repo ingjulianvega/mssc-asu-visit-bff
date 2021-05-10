@@ -5,7 +5,7 @@ application-version: @project.version@
 contact-name: Julián Camilo Vega Rocha
 contact-email: ingjulianvega@gmail.com
 contact-url: https://twitter.com/ingjulianvega
-
+#Spring
 spring:
   application:
     name: ssc-asu-visit-bff
@@ -20,9 +20,11 @@ spring:
   cache:
     jcache:
       config: classpath:ehcache.xml
-  artemis:
-    user: artemis
-    password: simetraehcapa
+#ActiveMQ
+active-mq:
+  broker-url: tcp://localhost:61616
+  user: artemis
+  password: simetraehcapa
 #General configuration
 server:
   port: 8111
@@ -43,4 +45,4 @@ log4j:
   logger:
     org:
       apache:
-        activemq=DEBUG:
+        activemq: DEBUG
