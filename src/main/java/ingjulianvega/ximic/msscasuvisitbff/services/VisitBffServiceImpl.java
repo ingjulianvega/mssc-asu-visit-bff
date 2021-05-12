@@ -94,7 +94,8 @@ public class VisitBffServiceImpl implements VisitBffService {
     public void updateById(UUID id, Visit visit) {
         log.debug("updateById()...");
         //Visit
-        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,new UpdateVisitEvent(visit));
+//        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,new UpdateVisitEvent(visit));
+        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,"Sending something");
         //System check
         Optional<SystemCheckList> optSystemCheckList = Optional.of(visit.getSystemCheckList());
         if( optSystemCheckList.isPresent()){
