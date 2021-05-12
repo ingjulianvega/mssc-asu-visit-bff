@@ -23,8 +23,8 @@ spring:
 #ActiveMQ
 active-mq:
   broker-url: tcp://localhost:61616
-  user: artemis
-  password: simetraehcapa
+  user: admin
+  password: admin
 #General configuration
 server:
   port: 8111

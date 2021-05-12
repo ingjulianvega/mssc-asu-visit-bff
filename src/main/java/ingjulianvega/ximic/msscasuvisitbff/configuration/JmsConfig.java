@@ -20,6 +20,9 @@ public class JmsConfig {
     @Value("${active-mq.password}")
     private String password;
 
+    @Value("${active-mq.broker-url}")
+    private String brokerUrl;
+
     public static final String UPDATE_VISIT_QUEUE = "update-visit";
     public static final String UPDATE_SYSTEM_CHECK_QUEUE = "update-system-check";
     public static final String UPDATE_BODY_CHECK_QUEUE = "update-body-check";
@@ -38,7 +41,7 @@ public class JmsConfig {
 
     @Bean
     public ActiveMQConnectionFactory connectionFactory(){
-        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("admin","admin","tcp://localhost:61616");
+        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(user,password,brokerUrl);
         return factory;
     }
 
