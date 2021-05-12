@@ -1,7 +1,8 @@
 package ingjulianvega.ximic.msscasuvisitbff.services;
 
+
+import ingjulianvega.ximic.events.*;
 import ingjulianvega.ximic.msscasuvisitbff.configuration.JmsConfig;
-import ingjulianvega.ximic.msscasuvisitbff.events.*;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -94,8 +95,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     public void updateById(UUID id, Visit visit) {
         log.debug("updateById()...");
         //Visit
-//        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,new UpdateVisitEvent(visit));
-        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,"Sending something");
+        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,new UpdateVisitEvent(visit));
         //System check
         Optional<SystemCheckList> optSystemCheckList = Optional.of(visit.getSystemCheckList());
         if( optSystemCheckList.isPresent()){

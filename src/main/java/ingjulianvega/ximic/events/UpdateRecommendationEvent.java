@@ -1,4 +1,4 @@
-package ingjulianvega.ximic.msscasuvisitbff.events;
+package ingjulianvega.ximic.events;
 
 import ingjulianvega.ximic.msscasuvisitbff.web.model.RecommendationDto;
 import lombok.AllArgsConstructor;

@@ -5,16 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Visit implements Serializable {
-
-    static final long serialVersionUID = -2894452328770257905L;
+public class Visit  {
 
     private UUID patientId;
     private UUID companionId;
