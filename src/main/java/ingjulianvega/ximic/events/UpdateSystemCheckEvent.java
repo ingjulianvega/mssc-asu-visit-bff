@@ -1,20 +1,24 @@
 package ingjulianvega.ximic.events;
 
-import ingjulianvega.ximic.msscasuvisitbff.web.model.SystemCheckDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UpdateSystemCheckEvent implements Serializable {
-    static final long serialVersionUID = 2946964379840635654L;
+    static final long serialVersionUID = -665180147118242193L;
 
-    private SystemCheckDto systemCheckDto;
+    private UUID visitId;
+    private UUID systemId;
+    private UUID symptomId;
+    private UUID intensityId;
+    private String observations;
 
 }

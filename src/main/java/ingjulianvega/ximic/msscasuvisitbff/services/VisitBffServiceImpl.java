@@ -121,7 +121,14 @@ public class VisitBffServiceImpl implements VisitBffService {
                     .systemCheckDtoList
                     .parallelStream()
                     .forEach(systemCheckDto -> {
-                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_SYSTEM_CHECK_QUEUE,new UpdateSystemCheckEvent(systemCheckDto));
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_SYSTEM_CHECK_QUEUE, UpdateSystemCheckEvent
+                                .builder()
+                                .visitId(id)
+                                .systemId(systemCheckDto.getSystemId())
+                                .symptomId(systemCheckDto.getSymptomId())
+                                .intensityId(systemCheckDto.getIntensityId())
+                                .observations(systemCheckDto.getObservations())
+                                .build());
                     });
         }
         //Body check
