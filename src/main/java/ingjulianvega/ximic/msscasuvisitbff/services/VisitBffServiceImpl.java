@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -91,6 +92,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         return null;
     }
 
+    @Transactional
     @Override
     public void updateById(UUID id, Visit visit) {
         log.debug("updateById()...");

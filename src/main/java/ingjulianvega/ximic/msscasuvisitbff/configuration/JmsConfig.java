@@ -1,27 +1,35 @@
 package ingjulianvega.ximic.msscasuvisitbff.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.connection.CachingConnectionFactory;
+import org.springframework.jms.connection.JmsTransactionManager;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableJms
+@EnableTransactionManagement
 @Configuration
+@Slf4j
 public class JmsConfig {
 
-    @Value("${active-mq.user}")
+    @Value("${spring.activemq.broker-url}")
+    private String brokerUrl;
+
+    @Value("${spring.activemq.user}")
     private String user;
 
-    @Value("${active-mq.password}")
+    @Value("${spring.activemq.password}")
     private String password;
-
-    @Value("${active-mq.broker-url}")
-    private String brokerUrl;
 
     public static final String UPDATE_VISIT_QUEUE = "update-visit";
     public static final String UPDATE_SYSTEM_CHECK_QUEUE = "update-system-check";
@@ -32,24 +40,51 @@ public class JmsConfig {
     public static final String UPDATE_DISABILITY_QUEUE = "update-disability";
 
     @Bean
-    public MessageConverter jacksonJmsMessageConverter(){
+    public MessageConverter jacksonJmsMessageConverter() {
+
+
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");
         return converter;
     }
 
+
     @Bean
-    public ActiveMQConnectionFactory connectionFactory(){
-        ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(user,password,brokerUrl);
+    public CachingConnectionFactory connectionFactory() {
+
+        CachingConnectionFactory factory = new CachingConnectionFactory(
+                new ActiveMQConnectionFactory(user, password, brokerUrl)
+        );
+        factory.setClientId("StoreFront");
+        factory.setSessionCacheSize(100);
         return factory;
     }
 
     @Bean
-    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory(){
+    public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory());
         factory.setMessageConverter(jacksonJmsMessageConverter());
+        factory.setTransactionManager(jmsTransactionManager());
+        factory.setErrorHandler(t -> {
+            log.info("Handling error in listening for messages, error: " + t.getMessage());
+        });
         return factory;
+    }
+
+    @Bean
+    public PlatformTransactionManager jmsTransactionManager(){
+        return new JmsTransactionManager(connectionFactory());
+    }
+
+    @Bean
+    public JmsTemplate jmsTemplate(){
+        JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory());
+        jmsTemplate.setMessageConverter(jacksonJmsMessageConverter());
+        jmsTemplate.setDeliveryPersistent(true);
+        jmsTemplate.setSessionTransacted(true);
+        return jmsTemplate;
+
     }
 }
