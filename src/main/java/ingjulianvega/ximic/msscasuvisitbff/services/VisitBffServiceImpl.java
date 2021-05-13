@@ -97,7 +97,23 @@ public class VisitBffServiceImpl implements VisitBffService {
     public void updateById(UUID id, Visit visit) {
         log.debug("updateById()...");
         //Visit
-        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE,new UpdateVisitEvent(visit));
+        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE, UpdateVisitEvent
+                .builder()
+                .id(id)
+                .patientId(visit.getPatientId())
+                .companionId(visit.getCompanionId())
+                .visitTypeId(visit.getVisitTypeId())
+                .billingId(visit.getBillingId())
+                .reason(visit.getReason())
+                .height(visit.getHeight())
+                .systolicBloodPressure(visit.getSystolicBloodPressure())
+                .diastolicBloodPressure(visit.getDiastolicBloodPressure())
+                .weight(visit.getWeight())
+                .heartRate(visit.getHeartRate())
+                .temperature(visit.getTemperature())
+                .diseaseId(visit.getDiseaseId())
+                .observations(visit.getObservations())
+                .build());
         //System check
         Optional<SystemCheckList> optSystemCheckList = Optional.of(visit.getSystemCheckList());
         if( optSystemCheckList.isPresent()){
