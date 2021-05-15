@@ -1,17 +1,22 @@
 package ingjulianvega.ximic.events;
 
-import ingjulianvega.ximic.msscasuvisitbff.web.model.BodyCheckDto;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UpdateBodyCheckEvent implements Serializable {
-    static final long serialVersionUID = 4180110919321178607L;
+    static final long serialVersionUID = -3434643162985140175L;
 
-    private BodyCheckDto bodyCheckDto;
+    private UUID visitId;
+    private UUID bodyPartId;
+    private String observations;
 
 }

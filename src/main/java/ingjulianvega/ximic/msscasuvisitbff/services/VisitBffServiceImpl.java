@@ -3,6 +3,7 @@ package ingjulianvega.ximic.msscasuvisitbff.services;
 
 import ingjulianvega.ximic.events.*;
 import ingjulianvega.ximic.msscasuvisitbff.configuration.JmsConfig;
+import ingjulianvega.ximic.msscasuvisitbff.web.Mappers.VisitBffMapper;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ import java.util.UUID;
 public class VisitBffServiceImpl implements VisitBffService {
 
     private final JmsTemplate jmsTemplate;
+    private final VisitBffMapper visitBffMapper;
+
 
     /*private final BillingRepository billingRepository;
     private final BillingMapper billingMapper;
@@ -97,88 +100,73 @@ public class VisitBffServiceImpl implements VisitBffService {
     public void updateById(UUID id, Visit visit) {
         log.debug("updateById()...");
         //Visit
-        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE, UpdateVisitEvent
-                .builder()
-                .id(id)
-                .patientId(visit.getPatientId())
-                .companionId(visit.getCompanionId())
-                .visitTypeId(visit.getVisitTypeId())
-                .billingId(visit.getBillingId())
-                .reason(visit.getReason())
-                .height(visit.getHeight())
-                .systolicBloodPressure(visit.getSystolicBloodPressure())
-                .diastolicBloodPressure(visit.getDiastolicBloodPressure())
-                .weight(visit.getWeight())
-                .heartRate(visit.getHeartRate())
-                .temperature(visit.getTemperature())
-                .diseaseId(visit.getDiseaseId())
-                .observations(visit.getObservations())
-                .build());
+        UpdateVisitEvent updateVisitEvent = visitBffMapper.visitToUpdateVisitEvent(visit);
+        updateVisitEvent.setId(id);
+        jmsTemplate.convertAndSend(JmsConfig.UPDATE_VISIT_QUEUE, updateVisitEvent);
         //System check
         Optional<SystemCheckList> optSystemCheckList = Optional.of(visit.getSystemCheckList());
         if( optSystemCheckList.isPresent()){
             visit.getSystemCheckList()
-                    .systemCheckDtoList
+                    .systemCheckList
                     .parallelStream()
-                    .forEach(systemCheckDto -> {
-                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_SYSTEM_CHECK_QUEUE, UpdateSystemCheckEvent
-                                .builder()
-                                .visitId(id)
-                                .systemId(systemCheckDto.getSystemId())
-                                .symptomId(systemCheckDto.getSymptomId())
-                                .intensityId(systemCheckDto.getIntensityId())
-                                .observations(systemCheckDto.getObservations())
-                                .build());
+                    .forEach(systemCheck -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_SYSTEM_CHECK_QUEUE,
+                                visitBffMapper.systemCheckToUpdateSystemCheckEvent(systemCheck));
                     });
         }
         //Body check
         Optional<BodyCheckList> optBodyCheckList = Optional.of(visit.getBodyCheckList());
         if( optBodyCheckList.isPresent()){
             visit.getBodyCheckList()
-                    .bodyCheckDtoList
+                    .bodyCheckList
                     .parallelStream()
-                    .forEach(bodyCheckDto -> {
-                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_BODY_CHECK_QUEUE,new UpdateBodyCheckEvent(bodyCheckDto));
+                    .forEach(bodyCheck -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_BODY_CHECK_QUEUE,
+                                visitBffMapper.bodyCheckToUpdateBodyCheckEvent(bodyCheck));
                     });
         }
         //Treatment
         Optional<TreatmentList> optTreatmentList = Optional.of(visit.getTreatmentList());
         if( optTreatmentList.isPresent()){
             visit.getTreatmentList()
-                    .treatmentDtoList
+                    .treatmentList
                     .parallelStream()
-                    .forEach(treatmentDto -> {
-                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_TREATMENT_QUEUE,new UpdateTreatmentEvent(treatmentDto));
+                    .forEach(treatment -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_TREATMENT_QUEUE,
+                                visitBffMapper.treatmentToUpdateTreatmentEvent(treatment));
                     });
         }
         //Recommendation
         Optional<RecommendationList> optRecommendationList = Optional.of(visit.getRecommendationList());
         if( optRecommendationList.isPresent()){
             visit.getRecommendationList()
-                    .recommendationDtoList
+                    .recommendationList
                     .parallelStream()
-                    .forEach(recommendationDto -> {
-                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_RECOMMENDATION_QUEUE,new UpdateRecommendationEvent(recommendationDto));
+                    .forEach(recommendation -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_RECOMMENDATION_QUEUE,
+                                visitBffMapper.recommendationToUpdateRecommendationEvent(recommendation));
                     });
         }
         //Remission
         Optional<RemissionList> optRemissionList = Optional.of(visit.getRemissionList());
         if( optRemissionList.isPresent()){
             visit.getRemissionList()
-                    .remissionDtoList
+                    .remissionList
                     .parallelStream()
-                    .forEach(remissionDto -> {
-                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_REMISSION_QUEUE,new UpdateRemissionEvent(remissionDto));
+                    .forEach(remission -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_REMISSION_QUEUE,
+                                visitBffMapper.remissionToUpdateRemissionEvent(remission));
                     });
         }
         //Disability
         Optional<DisabilityList> optDisabilityList = Optional.of(visit.getDisabilityList());
         if( optDisabilityList.isPresent()){
             visit.getDisabilityList()
-                    .disabilityDtoList
+                    .disabilityList
                     .parallelStream()
-                    .forEach(disabilityDto -> {
-                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_DISABILITY_QUEUE,new UpdateDisabilityEvent(disabilityDto));
+                    .forEach(disability -> {
+                        jmsTemplate.convertAndSend(JmsConfig.UPDATE_DISABILITY_QUEUE,
+                                visitBffMapper.disabilityToUpdateDisabilityEvent(disability));
                     });
         }
     }
