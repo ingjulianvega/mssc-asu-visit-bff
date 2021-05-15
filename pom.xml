@@ -7,10 +7,12 @@
 		<artifactId>mssc-asu-bom</artifactId>
 		<version>0.0.2-SNAPSHOT</version>
 	</parent>
+
 	<artifactId>mssc-asu-visit-bff</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>mssc-asu-visit-bff</name>
 	<description>ASU visit-bff microservice</description>
+
 	<properties>
 		<!--set this to your docker acct name-->
 		<docker.image.prefix>ingjulianvega</docker.image.prefix>
