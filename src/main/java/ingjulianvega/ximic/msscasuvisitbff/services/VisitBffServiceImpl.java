@@ -1,12 +1,14 @@
 package ingjulianvega.ximic.msscasuvisitbff.services;
 
 
-import ingjulianvega.ximic.events.*;
+import ingjulianvega.ximic.events.UpdateVisitEvent;
 import ingjulianvega.ximic.msscasuvisitbff.configuration.JmsConfig;
+import ingjulianvega.ximic.msscasuvisitbff.services.feign.*;
 import ingjulianvega.ximic.msscasuvisitbff.web.Mappers.VisitBffMapper;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,78 +22,71 @@ import java.util.UUID;
 @Service
 public class VisitBffServiceImpl implements VisitBffService {
 
+    public static final String VISIT_BY_ID_PATH = "/asu/v1/visit/{id}";
+    public static final String VISIT_BY_PATIENT_ID_PATH = "/asu/v1/visit/patient-id/{patient-id}";
+    public static final String VISIT_BY_DATE_PATH = "/asu/v1/visit/created-date/{created-date}";
+    public static final String VISIT_BY_DISEASE_ID_PATH = "/asu/v1/visit/disease/{disease-id}";
+    public static final String SYSTEM_CHECK_BY_VISIT_ID_PATH = "/asu/v1/system-check/visit-id/{visit-id}";
+    public static final String BODY_CHECK_BY_VISIT_ID_PATH = "/asu/v1/body-check/visit-id/{visit-id}";
+    public static final String TREATMENT_BY_VISIT_ID_PATH = "/asu/v1/treatment/visit-id/{visit-id}";
+    public static final String RECOMMENDATION_BY_VISIT_ID_PATH = "/asu/v1/recommendation/visit-id/{visit-id}";
+    public static final String REMISSION_BY_VISIT_ID_PATH = "/asu/v1/remission/visit-id/{visit-id}";
+    public static final String DISABILITY_BY_VISIT_ID_PATH = "/asu/v1/disability/visit-id/{visit-id}";
+
+    private final VisitServiceFeignClient visitServiceFeignClient;
+    private final SystemCheckServiceFeignClient systemCheckServiceFeignClient;
+    private final BodyCheckServiceFeignClient bodyCheckServiceFeignClient;
+    private final TreatmentServiceFeignClient treatmentServiceFeignClient;
+    private final RecommendationServiceFeignClient recommendationServiceFeignClient;
+    private final RemissionServiceFeignClient remissionServiceFeignClient;
+    private final DisabilityServiceFeignClient disabilityServiceFeignClient;
     private final JmsTemplate jmsTemplate;
     private final VisitBffMapper visitBffMapper;
-
-
-    /*private final BillingRepository billingRepository;
-    private final BillingMapper billingMapper;
-
-
-    @Cacheable(cacheNames = "billingListCache")
-    @Override
-    public BillingList get() {
-        log.debug("get()...");
-        return BillingList
-                .builder()
-                .billingDtoList(billingMapper.billingEntityListToBillingDtoList(billingRepository.findAll()))
-                .build();
-    }
-
-    @Cacheable(cacheNames = "billingCache")
-    @Override
-    public BillingDto getById(UUID id) {
-        log.debug("getById()...");
-        return billingMapper.billingEntityToBillingDto(
-                billingRepository.findById(id)
-                        .orElseThrow(() -> new BillingException(ErrorCodeMessages.BILLING_NOT_FOUND, "")));
-    }
-
-    @Override
-    public void create(Billing billing) {
-        log.debug("create()...");
-        billingMapper.billingEntityToBillingDto(
-                billingRepository.save(
-                        billingMapper.billingDtoToBillingEntity(
-                                BillingDto
-                                        .builder()
-                                        .paymentMethod(billing.getPaymentMethod())
-                                        .quantity(billing.getQuantity())
-                                        .build())));
-    }
-
-    @Override
-    public void updateById(UUID id, Billing billing) {
-        log.debug("updateById...");
-        BillingEntity billingEntity = billingRepository.findById(id)
-                .orElseThrow(() -> new BillingException(ErrorCodeMessages.BILLING_NOT_FOUND, ""));
-
-        billingEntity.setPaymentMethod(billing.getPaymentMethod());
-        billingEntity.setQuantity(billing.getQuantity());
-        billingRepository.save(billingEntity);
-    }*/
 
     @Override
     public VisitList getSummaryByPatientId(UUID patientId) {
         log.debug("getSummaryByPatientId()...");
+        ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByPatientId(patientId);
         return null;
     }
 
     @Override
     public VisitList getSummaryByDate(OffsetDateTime date) {
         log.debug("getSummaryByDate()...");
+        ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByDate(date);
         return null;
     }
 
     @Override
     public VisitList getSummaryByDisease(UUID diseaseId) {
         log.debug("getSummaryByDisease()...");
+        ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByDiseaseId(diseaseId);
         return null;
     }
 
     @Override
     public VisitDto getDetailById(UUID id) {
         log.debug("getDetailById()...");
+        ResponseEntity<VisitDto> visitResponse = visitServiceFeignClient.getById(id);
+        //System check
+        ResponseEntity<SystemCheckList> systemCheckResponse = systemCheckServiceFeignClient.getByVisitId(id);
+
+        //Body check
+        ResponseEntity<BodyCheckList> bodyCheckResponse = bodyCheckServiceFeignClient.getByVisitId(id);
+
+        //Treatment
+        ResponseEntity<TreatmentList> treatmentResponse = treatmentServiceFeignClient.getByVisitId(id);
+
+        //Recommendation
+        ResponseEntity<RecommendationList> recommendationResponse = recommendationServiceFeignClient.getByVisitId(id);
+
+        //Remission
+        ResponseEntity<RemissionList> remissionResponse = remissionServiceFeignClient.getByVisitId(id);
+
+        //Disability
+        ResponseEntity<DisabilityList> disabilityResponse = disabilityServiceFeignClient.getByVisitId(id);
+        //TODO foreach elemento of the list
+
         return null;
     }
 
