@@ -5,6 +5,7 @@ import ingjulianvega.ximic.msscasuvisitbff.services.VisitBffService;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.Visit;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitDto;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitList;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitListBffResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +22,17 @@ public class VisitBffController implements VisitBffI {
     private final VisitBffService visitBffService;
 
     @Override
-    public ResponseEntity<VisitList> getSummaryByPatientId(UUID patientId) {
+    public ResponseEntity<VisitListBffResponse> getSummaryByPatientId(UUID patientId) {
         return new ResponseEntity<>(visitBffService.getSummaryByPatientId(patientId), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<VisitList> getSummaryByDate(OffsetDateTime date) {
+    public ResponseEntity<VisitListBffResponse> getSummaryByDate(OffsetDateTime date) {
         return new ResponseEntity<>(visitBffService.getSummaryByDate(date), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<VisitList> getSummaryByDisease(UUID diseaseId) {
+    public ResponseEntity<VisitListBffResponse> getSummaryByDisease(UUID diseaseId) {
         return new ResponseEntity<>(visitBffService.getSummaryByDisease(diseaseId), HttpStatus.OK);
     }
 

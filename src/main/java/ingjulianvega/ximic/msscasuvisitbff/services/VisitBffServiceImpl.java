@@ -44,21 +44,21 @@ public class VisitBffServiceImpl implements VisitBffService {
     private final VisitBffMapper visitBffMapper;
 
     @Override
-    public VisitList getSummaryByPatientId(UUID patientId) {
+    public VisitListBffResponse getSummaryByPatientId(UUID patientId) {
         log.debug("getSummaryByPatientId()...");
         ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByPatientId(patientId);
         return null;
     }
 
     @Override
-    public VisitList getSummaryByDate(OffsetDateTime date) {
+    public VisitListBffResponse getSummaryByDate(OffsetDateTime date) {
         log.debug("getSummaryByDate()...");
         ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByDate(date);
         return null;
     }
 
     @Override
-    public VisitList getSummaryByDisease(UUID diseaseId) {
+    public VisitListBffResponse getSummaryByDisease(UUID diseaseId) {
         log.debug("getSummaryByDisease()...");
         ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByDiseaseId(diseaseId);
         return null;
