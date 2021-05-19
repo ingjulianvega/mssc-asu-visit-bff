@@ -32,6 +32,12 @@ public class VisitBffServiceImpl implements VisitBffService {
     public static final String RECOMMENDATION_BY_VISIT_ID_PATH = "/asu/v1/recommendation/visit-id/{visit-id}";
     public static final String REMISSION_BY_VISIT_ID_PATH = "/asu/v1/remission/visit-id/{visit-id}";
     public static final String DISABILITY_BY_VISIT_ID_PATH = "/asu/v1/disability/visit-id/{visit-id}";
+    public static final String DOCUMENT_TYPE_BY_ID_PATH = "/asu/v1/document-type/{id}";
+    public static final String MARITAL_STATUS_BY_ID_PATH = "/asu/v1/marital-status/{id}";
+    public static final String GENDER_BY_ID_PATH = "/asu/v1/gender/{id}";
+    public static final String OCCUPATION_BY_ID_PATH = "/asu/v1/occupation/{id}";
+    public static final String EPS_BY_ID_PATH = "/asu/v1/eps/{id}";
+    public static final String ARL_BY_ID_PATH = "/asu/v1/arl/{id}";
 
     private final VisitServiceFeignClient visitServiceFeignClient;
     private final SystemCheckServiceFeignClient systemCheckServiceFeignClient;
@@ -65,7 +71,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     }
 
     @Override
-    public VisitDto getDetailById(UUID id) {
+    public VisitListBffResponse getDetailById(UUID id) {
         log.debug("getDetailById()...");
         ResponseEntity<VisitDto> visitResponse = visitServiceFeignClient.getById(id);
         //System check

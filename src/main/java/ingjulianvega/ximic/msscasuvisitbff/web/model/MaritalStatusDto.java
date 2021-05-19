@@ -13,8 +13,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MaritalStatusDtoBffResponse implements Serializable {
-    static final long serialVersionUID = 1520803124561765781L;
+public class MaritalStatusDto implements Serializable {
+    static final long serialVersionUID = 7441561937444878811L;
 
     @Null
     private UUID id;

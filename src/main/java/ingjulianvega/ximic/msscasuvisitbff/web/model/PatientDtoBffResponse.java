@@ -18,7 +18,7 @@ public class PatientDtoBffResponse implements Serializable {
     static final long serialVersionUID = -5560354705447607394L;
 
     private UUID id;
-    private DocumentTypeDtoBffResponse documentType;
+    private DocumentTypeDto documentType;
     private String documentNumber;
     private String name;
     private String firstLastName;
@@ -29,10 +29,10 @@ public class PatientDtoBffResponse implements Serializable {
     private OffsetDateTime birthDate;
     private String hand;
     private String address;
-    private MaritalStatusDtoBffResponse maritalStatus;
-    private GenderDtoBffResponse gender;
-    private OccupationDtoBffResponse occupation;
-    private EpsDtoBffResponse eps;
-    private ArlDtoBffResponse arl;
+    private MaritalStatusDto maritalStatus;
+    private GenderDto gender;
+    private OccupationDto occupation;
+    private EpsDto eps;
+    private ArlDto arl;
 
 }

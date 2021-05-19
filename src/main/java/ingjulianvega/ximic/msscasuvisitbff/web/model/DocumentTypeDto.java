@@ -9,17 +9,17 @@ import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.UUID;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OccupationDtoBffResponse implements Serializable {
-    static final long serialVersionUID = 3288070695886353002L;
+public class DocumentTypeDto implements Serializable {
+    static final long serialVersionUID = -6032716396348087779L;
 
     @Null
     private UUID id;
     private String name;
+    private String abbreviation;
 
 }
 

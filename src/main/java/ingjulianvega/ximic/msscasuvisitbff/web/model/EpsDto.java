@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EpsDtoBffResponse implements Serializable {
+public class EpsDto implements Serializable {
     static final long serialVersionUID = 2360283321945455141L;
 
     @Null

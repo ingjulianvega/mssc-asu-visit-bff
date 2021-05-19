@@ -59,7 +59,7 @@ public interface VisitBffI {
 
     @Operation(summary = "Endpoint to get the information of a visit given the id", description = "Returns a visit", tags = {"detail"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The operation was successful.", content = @Content(schema = @Schema(implementation = VisitDto.class))),
+            @ApiResponse(responseCode = "200", description = "The operation was successful.", content = @Content(schema = @Schema(implementation = VisitListBffResponse.class))),
 
             @ApiResponse(responseCode = "400", description = "400 - business error", content = @Content(schema = @Schema(implementation = ApiError.class))),
 
@@ -67,7 +67,7 @@ public interface VisitBffI {
     @RequestMapping(value = "detail/{id}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<VisitDto> getDetailById(@Parameter(in = ParameterIn.PATH, description = "The visit id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
+    ResponseEntity<VisitListBffResponse> getDetailById(@Parameter(in = ParameterIn.PATH, description = "The visit id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
     
     @Operation(summary = "Endpoint to update the information of a visit given the id", description = "Updates a visit", tags = {"visit"})
     @ApiResponses(value = {

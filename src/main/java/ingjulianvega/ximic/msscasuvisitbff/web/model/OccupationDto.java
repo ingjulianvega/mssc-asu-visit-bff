@@ -5,18 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.UUID;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GenderDtoBffResponse implements Serializable {
+public class OccupationDto implements Serializable {
+    static final long serialVersionUID = 3288070695886353002L;
 
-    static final long serialVersionUID = -3688594400303662005L;
-
+    @Null
     private UUID id;
     private String name;
 
 }
+

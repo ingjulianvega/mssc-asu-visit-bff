@@ -17,7 +17,7 @@ public class CompanionDtoBffResponse implements Serializable {
     static final long serialVersionUID = 3293663906761130008L;
 
     private UUID id;
-    private DocumentTypeDtoBffResponse documentType;
+    private DocumentTypeDto documentType;
     private String name;
     private String firstLastName;
     private String secondLastName;

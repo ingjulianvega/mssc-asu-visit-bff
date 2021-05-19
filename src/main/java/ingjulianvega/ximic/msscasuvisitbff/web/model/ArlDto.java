@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ArlDtoBffResponse implements Serializable {
+public class ArlDto implements Serializable {
     static final long serialVersionUID = 3498264741143916369L;
 
     @Null
