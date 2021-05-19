@@ -12,12 +12,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BillingDtoBffResponse implements Serializable {
+public class DiseaseDto implements Serializable {
 
-    static final long serialVersionUID = 6590046323118692119L;
+    static final long serialVersionUID = -3347868197884138651L;
 
     private UUID id;
-    private String paymentMethod;
-    private int quantity;
+    private String name;
 
 }

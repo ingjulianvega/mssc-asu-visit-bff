@@ -13,9 +13,9 @@ public class VisitBffResponse {
 
     private PatientDtoBffResponse patient;
     private CompanionDtoBffResponse companion;
-    private VisitTypeDtoBffResponse visitType;
-    private BillingDtoBffResponse billing;
-    private DiseaseDtoBffResponse disease;
+    private VisitTypeDto visit;
+    private BillingDto billing;
+    private DiseaseDto disease;
     private String reason;
     private int height;
     private int systolicBloodPressure;

@@ -20,8 +20,8 @@ public class VisitDtoBffResponse implements Serializable {
     private UUID id;
     private PatientDtoBffResponse patient;
     private CompanionDtoBffResponse companion;
-    private VisitTypeDtoBffResponse visitType;
-    private BillingDtoBffResponse billing;
+    private VisitTypeDto visitType;
+    private BillingDto billing;
     private String reason;
     private int height;
     private int systolicBloodPressure;
@@ -29,7 +29,7 @@ public class VisitDtoBffResponse implements Serializable {
     private int weight;
     private int heartRate;
     private float temperature;
-    private DiseaseDtoBffResponse disease;
+    private DiseaseDto disease;
     private String observations;
     private OffsetDateTime createdDate;
 
