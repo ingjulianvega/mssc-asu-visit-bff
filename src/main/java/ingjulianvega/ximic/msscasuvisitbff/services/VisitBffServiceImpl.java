@@ -39,6 +39,14 @@ public class VisitBffServiceImpl implements VisitBffService {
     public static final String EPS_BY_ID_PATH = "/asu/v1/eps/{id}";
     public static final String ARL_BY_ID_PATH = "/asu/v1/arl/{id}";
     public static final String COMPANION_BY_ID_PATH = "/asu/v1/companion/{id}";
+    public static final String EVIDENCE_BY_ID_PATH = "/asu/v1/evidence/{id}";
+    public static final String EVIDENCE_TYPE_BY_ID_PATH = "/asu/v1/evidence-type/{id}";
+    public static final String DISEASE_BY_ID_PATH = "/asu/v1/evidence-type/{id}";
+    public static final String SYSTEM_BY_ID_PATH = "/asu/v1/system/{id}";
+    public static final String SYMPTOM_BY_ID_PATH = "/asu/v1/symptom/{id}";
+    public static final String INTENSITY_BY_ID_PATH = "/asu/v1/intensity/{id}";
+    public static final String BODY_PART_BY_ID_PATH = "/asu/v1/body-part/{id}";
+    public static final String MEDICINE_BY_ID_PATH = "/asu/v1/medicine/{id}";
 
     private final VisitServiceFeignClient visitServiceFeignClient;
     private final SystemCheckServiceFeignClient systemCheckServiceFeignClient;
