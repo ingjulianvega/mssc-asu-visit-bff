@@ -17,7 +17,7 @@ public class BodyCheckBffResponse implements Serializable {
     static final long serialVersionUID = -7238205791641982838L;
 
     private UUID visitId;
-    private BodyPartDtoBffResponse bodyPart;
+    private BodyPartDto bodyPart;
     private String observations;
 
 }

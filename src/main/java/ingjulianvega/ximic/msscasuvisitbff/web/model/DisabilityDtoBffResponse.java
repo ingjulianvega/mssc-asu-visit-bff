@@ -18,9 +18,9 @@ public class DisabilityDtoBffResponse implements Serializable {
 
     private UUID id;
     private UUID visitId;
-    private DisabilityTypeDtoBffResponse disabilityType;
+    private DisabilityTypeDto disabilityType;
     private int durationQuantity;
-    private DurationDtoBffResponse duration;
+    private DurationDto duration;
     private String observations;
 
 }

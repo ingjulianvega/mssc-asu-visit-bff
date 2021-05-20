@@ -18,7 +18,7 @@ public class RecommendationDtoBffResponse implements Serializable {
 
     private UUID id;
     private UUID visitId;
-    private RecommendationTypeDtoBffResponse recommendationType;
+    private RecommendationTypeDto recommendationType;
     private String observations;
 
 }

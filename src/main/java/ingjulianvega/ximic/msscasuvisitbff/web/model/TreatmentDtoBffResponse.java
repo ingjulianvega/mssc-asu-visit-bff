@@ -18,11 +18,11 @@ public class TreatmentDtoBffResponse implements Serializable {
 
     private UUID id;
     private UUID visitId;
-    private MedicineDtoBffResponse medicine;
+    private MedicineDto medicine;
     private int concentrationQuantity;
-    private AdministrationMethodDtoBffResponse administrationMethod;
+    private AdministrationMethodDto administrationMethod;
     private int durationQuantity;
-    private DurationDtoBffResponse duration;
+    private DurationDto duration;
     private String observations;
 
 }

@@ -12,11 +12,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MedicineDtoBffResponse implements Serializable {
+public class CompanionDto implements Serializable {
 
-    static final long serialVersionUID = -4512963466195863839L;
+    static final long serialVersionUID = 3293663906761130008L;
 
     private UUID id;
+    private DocumentTypeDto documentType;
     private String name;
+    private String firstLastName;
+    private String secondLastName;
+    private String homePhone;
+    private String mobilePhone;
+    private String email;
 
 }

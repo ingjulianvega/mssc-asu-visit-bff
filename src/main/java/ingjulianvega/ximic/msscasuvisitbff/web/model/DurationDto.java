@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DurationDtoBffResponse implements Serializable {
+public class DurationDto implements Serializable {
 
     static final long serialVersionUID = 7097345906911744228L;
 

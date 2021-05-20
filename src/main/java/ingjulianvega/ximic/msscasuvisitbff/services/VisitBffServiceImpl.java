@@ -38,6 +38,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     public static final String OCCUPATION_BY_ID_PATH = "/asu/v1/occupation/{id}";
     public static final String EPS_BY_ID_PATH = "/asu/v1/eps/{id}";
     public static final String ARL_BY_ID_PATH = "/asu/v1/arl/{id}";
+    public static final String COMPANION_BY_ID_PATH = "/asu/v1/companion/{id}";
 
     private final VisitServiceFeignClient visitServiceFeignClient;
     private final SystemCheckServiceFeignClient systemCheckServiceFeignClient;

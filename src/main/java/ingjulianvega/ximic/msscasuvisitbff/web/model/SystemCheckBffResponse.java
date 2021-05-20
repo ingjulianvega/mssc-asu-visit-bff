@@ -17,9 +17,9 @@ public class SystemCheckBffResponse implements Serializable {
     static final long serialVersionUID = 7387638237575102353L;
 
     private UUID visitId;
-    private SystemDtoBffResponse system;
-    private SymptomDtoBffResponse symptom;
-    private IntensityDtoBffResponse intensity;
+    private SystemDto system;
+    private SymptomDto symptom;
+    private IntensityDto intensity;
     private String observations;
 
 }

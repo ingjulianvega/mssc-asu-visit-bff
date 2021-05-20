@@ -18,7 +18,7 @@ public class RemissionDtoBffResponse implements Serializable {
 
     private UUID id;
     private UUID visitId;
-    private RemissionTypeDtoBffResponse remissionType;
+    private RemissionTypeDto remissionType;
     private String observations;
 
 }

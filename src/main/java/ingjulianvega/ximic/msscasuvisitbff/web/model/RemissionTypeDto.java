@@ -12,9 +12,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RecommendationTypeDtoBffResponse implements Serializable {
+public class RemissionTypeDto implements Serializable {
 
-    static final long serialVersionUID = 2461858940878399320L;
+    static final long serialVersionUID = -6318142953858305151L;
 
     private UUID id;
     private String name;

@@ -16,5 +16,5 @@ public class VisitListBffResponse implements Serializable {
 
     static final long serialVersionUID = 6840731619737550145L;
 
-    public ArrayList<VisitBffResponse> visitDtoList;
+    public ArrayList<VisitBffResponse> visitBffResponseList;
 }

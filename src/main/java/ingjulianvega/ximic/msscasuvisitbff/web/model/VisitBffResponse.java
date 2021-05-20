@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class VisitBffResponse {
 
     private PatientDtoBffResponse patient;
-    private CompanionDtoBffResponse companion;
+    private CompanionDto companion;
     private VisitTypeDto visit;
     private BillingDto billing;
     private DiseaseDto disease;
