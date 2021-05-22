@@ -47,6 +47,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     public static final String INTENSITY_BY_ID_PATH = "/asu/v1/intensity/{id}";
     public static final String BODY_PART_BY_ID_PATH = "/asu/v1/body-part/{id}";
     public static final String MEDICINE_BY_ID_PATH = "/asu/v1/medicine/{id}";
+    public static final String CONCENTRATION_BY_ID_PATH = "/asu/v1/concentration/{id}";
 
     private final VisitServiceFeignClient visitServiceFeignClient;
     private final SystemCheckServiceFeignClient systemCheckServiceFeignClient;
