@@ -10,16 +10,16 @@ public interface VisitBffMapper {
 
     UpdateVisitEvent visitToUpdateVisitEvent(Visit visit);
 
-    UpdateSystemCheckEvent systemCheckToUpdateSystemCheckEvent(SystemCheck systemCheck);
+    UpdateSystemCheckEvent systemCheckDtoToUpdateSystemCheckEvent(SystemCheckDto systemCheckDto);
 
-    UpdateBodyCheckEvent bodyCheckToUpdateBodyCheckEvent(BodyCheck bodyCheck);
+    UpdateBodyCheckEvent bodyCheckDtoToUpdateBodyCheckEvent(BodyCheckDto bodyCheckDto);
 
-    UpdateTreatmentEvent treatmentToUpdateTreatmentEvent(Treatment treatment);
+    UpdateTreatmentEvent treatmentDtoToUpdateTreatmentEvent(TreatmentDto treatmentDto);
 
-    UpdateRecommendationEvent recommendationToUpdateRecommendationEvent(Recommendation recommendation);
+    UpdateRecommendationEvent recommendationDtoToUpdateRecommendationEvent(RecommendationDto recommendationDto);
 
-    UpdateRemissionEvent remissionToUpdateRemissionEvent(Remission remission);
+    UpdateRemissionEvent remissionDtoToUpdateRemissionEvent(RemissionDto remissionDto);
 
-    UpdateDisabilityEvent disabilityToUpdateDisabilityEvent(Disability disability);
+    UpdateDisabilityEvent disabilityDtoToUpdateDisabilityEvent(DisabilityDto disabilityDto);
 
 }

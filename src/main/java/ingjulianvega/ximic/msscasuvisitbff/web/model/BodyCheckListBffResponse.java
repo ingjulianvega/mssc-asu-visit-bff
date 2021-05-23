@@ -16,5 +16,5 @@ public class BodyCheckListBffResponse implements Serializable {
 
     static final long serialVersionUID = -8207983944467339770L;
 
-    public ArrayList<BodyCheckBffResponse> bodyCheckList;
+    public ArrayList<BodyCheckDtoBffResponse> bodyCheckList;
 }

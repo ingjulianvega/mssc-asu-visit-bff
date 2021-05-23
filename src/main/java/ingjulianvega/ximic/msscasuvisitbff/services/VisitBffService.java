@@ -2,6 +2,7 @@ package ingjulianvega.ximic.msscasuvisitbff.services;
 
 
 import ingjulianvega.ximic.msscasuvisitbff.web.model.Visit;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitBffResponse;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitListBffResponse;
 
 import java.time.OffsetDateTime;
@@ -15,7 +16,7 @@ public interface VisitBffService {
 
     VisitListBffResponse getSummaryByDisease(UUID diseaseId);
 
-    VisitListBffResponse getDetailById(UUID id);
+    VisitBffResponse getDetailById(UUID id);
 
     void updateById(UUID id, Visit visit);
 

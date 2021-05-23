@@ -12,12 +12,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BodyCheckBffResponse implements Serializable {
+public class SystemCheckDtoBffResponse implements Serializable {
 
-    static final long serialVersionUID = -7238205791641982838L;
+    static final long serialVersionUID = 7387638237575102353L;
 
     private UUID visitId;
-    private BodyPartDto bodyPart;
+    private SystemDto system;
+    private SymptomDto symptom;
+    private IntensityDto intensity;
     private String observations;
 
 }

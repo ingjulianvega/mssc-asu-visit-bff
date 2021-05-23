@@ -14,11 +14,12 @@ import java.util.UUID;
 @Builder
 public class Treatment implements Serializable {
 
-    static final long serialVersionUID = -1662050734122783879L;
+    static final long serialVersionUID = 1625150841100586956L;
 
     private UUID visitId;
     private UUID medicineId;
     private int concentrationQuantity;
+    private UUID concentrationId;
     private UUID administrationMethodId;
     private int durationQuantity;
     private UUID durationId;

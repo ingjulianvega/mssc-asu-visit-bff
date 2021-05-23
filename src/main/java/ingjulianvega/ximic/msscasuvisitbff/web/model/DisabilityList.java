@@ -16,5 +16,5 @@ public class DisabilityList implements Serializable {
 
     static final long serialVersionUID = 5746396784595787828L;
 
-    public ArrayList<Disability> disabilityList;
+    public ArrayList<DisabilityDto> disabilityList;
 }

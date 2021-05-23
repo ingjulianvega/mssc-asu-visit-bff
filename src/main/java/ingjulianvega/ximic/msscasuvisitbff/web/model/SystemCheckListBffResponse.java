@@ -16,5 +16,5 @@ public class SystemCheckListBffResponse implements Serializable {
 
     static final long serialVersionUID = -212416712970952218L;
 
-    public ArrayList<SystemCheckBffResponse> systemCheckList;
+    public ArrayList<SystemCheckDtoBffResponse> systemCheckList;
 }

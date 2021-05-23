@@ -19,7 +19,7 @@ public class VisitDtoBffResponse implements Serializable {
 
     private UUID id;
     private PatientDtoBffResponse patient;
-    private CompanionDto companion;
+    private CompanionDtoBffResponse companion;
     private VisitTypeDto visitType;
     private BillingDto billing;
     private String reason;

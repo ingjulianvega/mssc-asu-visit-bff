@@ -20,6 +20,7 @@ public class TreatmentDtoBffResponse implements Serializable {
     private UUID visitId;
     private MedicineDto medicine;
     private int concentrationQuantity;
+    private ConcentrationDto concentration;
     private AdministrationMethodDto administrationMethod;
     private int durationQuantity;
     private DurationDto duration;

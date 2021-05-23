@@ -12,12 +12,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CompanionDto implements Serializable {
+public class CompanionDtoBffResponse implements Serializable {
 
-    static final long serialVersionUID = -4306948508319651276L;
+    static final long serialVersionUID = 3293663906761130008L;
 
     private UUID id;
-    private UUID documentTypeId;
+    private DocumentTypeDto documentType;
     private String name;
     private String firstLastName;
     private String secondLastName;
