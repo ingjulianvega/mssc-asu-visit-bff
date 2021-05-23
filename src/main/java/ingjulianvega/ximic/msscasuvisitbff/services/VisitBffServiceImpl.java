@@ -3,6 +3,7 @@ package ingjulianvega.ximic.msscasuvisitbff.services;
 
 import ingjulianvega.ximic.events.UpdateVisitEvent;
 import ingjulianvega.ximic.msscasuvisitbff.configuration.JmsConfig;
+import ingjulianvega.ximic.msscasuvisitbff.exception.VisitBffException;
 import ingjulianvega.ximic.msscasuvisitbff.services.feign.*;
 import ingjulianvega.ximic.msscasuvisitbff.web.Mappers.VisitBffMapper;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
@@ -57,6 +58,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     public static final String DISABILITY_TYPE_BY_ID_PATH = "/asu/v1/disability-type/{id}";
     public static final String REMISSION_TYPE_BY_ID_PATH = "/asu/v1/remission-type/{id}";
     public static final String PATIENT_BY_ID_PATH = "/asu/v1/patient/{id}";
+    public static final String BILLING_BY_ID_PATH = "/asu/v1/billing/{id}";
 
 
     private final VisitServiceFeignClient visitServiceFeignClient;
@@ -74,6 +76,9 @@ public class VisitBffServiceImpl implements VisitBffService {
     private final EpsServiceFeignClient epsServiceFeignClient;
     private final ArlServiceFeignClient arlServiceFeignClient;
     private final CompanionServiceFeignClient companionServiceFeignClient;
+    private final VisitTypeServiceFeignClient visitTypeServiceFeignClient;
+    private final BillingFeignClient billingFeignClient;
+    private final DiseaseServiceFeignClient diseaseServiceFeignClient;
     private final SystemServiceFeignClient systemServiceFeignClient;
     private final SymptomServiceFeignClient symptomServiceFeignClient;
     private final IntensityServiceFeignClient intensityServiceFeignClient;
@@ -117,31 +122,80 @@ public class VisitBffServiceImpl implements VisitBffService {
         ResponseEntity<VisitDto> visitDtoResponse = visitServiceFeignClient.getById(id);
 
         //Patient
-        ResponseEntity<PatientDto> patientDtoResponse = patientServiceFeignClient.getById(visitDtoResponse.getBody().getPatientId());
+        ResponseEntity<PatientDto> patientDtoResponse = null;
+        ResponseEntity<DocumentTypeDto> documentTypeDtoResponse = null;
+        ResponseEntity<MaritalStatusDto> maritalStatusDtoResponse = null;
+        ResponseEntity<GenderDto> genderDtoResponse = null;
+        ResponseEntity<OccupationDto> occupationDtoResponse = null;
+        ResponseEntity<EpsDto> epsDtoResponse = null;
+        ResponseEntity<ArlDto> arlDtoResponse = null;
+        Optional<UUID> optPatientId = Optional.ofNullable(visitDtoResponse.getBody().getPatientId());
+        if(optPatientId.isPresent()) {
+            patientDtoResponse = patientServiceFeignClient.getById(visitDtoResponse.getBody().getPatientId());
+            //DocumentType
+            documentTypeDtoResponse = documentTypeServiceFeignClient.getById(patientDtoResponse.getBody().getDocumentTypeId());
 
-        //DocumentType
-        ResponseEntity<DocumentTypeDto> documentTypeDtoResponse = documentTypeServiceFeignClient.getById(patientDtoResponse.getBody().getDocumentTypeId());
+            //MaritalStatus
+            maritalStatusDtoResponse = maritalStatusServiceFeignClient.getById(patientDtoResponse.getBody().getMaritalStatusId());
 
-        //MaritalStatus
-        ResponseEntity<MaritalStatusDto> maritalStatusDtoResponse = maritalStatusServiceFeignClient.getById(patientDtoResponse.getBody().getMaritalStatusId());
+            //Gender
+            genderDtoResponse = genderServiceFeignClient.getById(patientDtoResponse.getBody().getGenderId());
 
-        //Gender
-        ResponseEntity<GenderDto> genderDtoResponse = genderServiceFeignClient.getById(patientDtoResponse.getBody().getGenderId());
+            //Occupation
+            occupationDtoResponse = occupationServiceFeignClient.getById(patientDtoResponse.getBody().getOccupationId());
 
-        //Occupation
-        ResponseEntity<OccupationDto> occupationDtoResponse = occupationServiceFeignClient.getById(patientDtoResponse.getBody().getOccupationId());
+            //Eps
+            epsDtoResponse = epsServiceFeignClient.getById(patientDtoResponse.getBody().getEpsId());
 
-        //Eps
-        ResponseEntity<EpsDto> epsDtoResponse = epsServiceFeignClient.getById(patientDtoResponse.getBody().getEpsId());
-
-        //Arl
-        ResponseEntity<ArlDto> arlDtoResponse = arlServiceFeignClient.getById(patientDtoResponse.getBody().getArlId());
+            //Arl
+            arlDtoResponse = arlServiceFeignClient.getById(patientDtoResponse.getBody().getArlId());
+        }else{
+            throw new VisitBffException("","No se pudo obtener PatientId");
+        }
 
         //Companion
-        ResponseEntity<CompanionDto> companionDtoResponse = companionServiceFeignClient.getById(visitDtoResponse.getBody().getCompanionId());
+        ResponseEntity<CompanionDto> companionDtoResponse = null;
+        ResponseEntity<DocumentTypeDto> companionDocumentTypeDtoResponse = null;
+        Optional<UUID> optCompanionId = Optional.ofNullable(visitDtoResponse.getBody().getCompanionId());
+        if(optCompanionId.isPresent()) {
+            companionDtoResponse = companionServiceFeignClient.getById(visitDtoResponse.getBody().getCompanionId());
 
-        //CompanionDocumentType
-        ResponseEntity<DocumentTypeDto> companionDocumentTypeDtoResponse = documentTypeServiceFeignClient.getById(companionDtoResponse.getBody().getDocumentTypeId());
+            //CompanionDocumentType
+            Optional<UUID> optCompanionDocumentTypeId = Optional.ofNullable(companionDtoResponse.getBody().getDocumentTypeId());
+            if (optCompanionDocumentTypeId.isPresent()) {
+                companionDocumentTypeDtoResponse = documentTypeServiceFeignClient.getById(companionDtoResponse.getBody().getDocumentTypeId());
+            }
+        }else{
+            throw new VisitBffException("","No se pudo obtener CompanionId");
+        }
+
+        //Visit type
+        ResponseEntity<VisitTypeDto> visitTypeDtoResponse = null;
+        Optional<UUID> optVisitTypeId = Optional.ofNullable(visitDtoResponse.getBody().getVisitTypeId());
+        if (optVisitTypeId.isPresent()) {
+
+            visitTypeDtoResponse = visitTypeServiceFeignClient.getById(visitDtoResponse.getBody().getVisitTypeId());
+        } else {
+            throw new VisitBffException("", "No se pudo obtener VisitTypeId");
+        }
+
+        //Billing
+        ResponseEntity<BillingDto> billingDtoResponse = null;
+        Optional<UUID> optBillingId = Optional.ofNullable(visitDtoResponse.getBody().getBillingId());
+        if (optBillingId.isPresent()) {
+            billingDtoResponse = billingFeignClient.getById(visitDtoResponse.getBody().getBillingId());
+        } else {
+            throw new VisitBffException("", "No se pudo obtener BillingId");
+        }
+
+        //Disease
+        ResponseEntity<DiseaseDto> diseaseDtoResponse = null;
+        Optional<UUID> optDiseaseId = Optional.ofNullable(visitDtoResponse.getBody().getDiseaseId());
+        if (optDiseaseId.isPresent()) {
+            diseaseDtoResponse = diseaseServiceFeignClient.getById(visitDtoResponse.getBody().getDiseaseId());
+        } else {
+            throw new VisitBffException("", "No se pudo obtener DiseaseId");
+        }
 
         //System check
         ResponseEntity<SystemCheckList> systemCheckResponse = systemCheckServiceFeignClient.getByVisitId(id);
@@ -162,7 +216,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                             ResponseEntity<IntensityDto> intensityDtoResponse = intensityServiceFeignClient.getById(systemCheckDto.getIntensityId());
 
                             return SystemCheckDtoBffResponse
-                                    .builder()//TODO Does not have id?
+                                    .builder()
                                     .visitId(id)
                                     .system(systemDtoResponse.getBody())
                                     .symptom(symptomDtoResponse.getBody())
@@ -190,7 +244,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                             ResponseEntity<BodyPartDto> bodyPartDtoResponse = bodyPartServiceFeignClient.getById(bodyCheckDto.getBodyPartId());
 
                             return BodyCheckDtoBffResponse
-                                    .builder()//TODO Does not have id?
+                                    .builder()
                                     .visitId(id)
                                     .bodyPart(bodyPartDtoResponse.getBody())
                                     .observations(bodyCheckDto.getObservations())
@@ -199,7 +253,6 @@ public class VisitBffServiceImpl implements VisitBffService {
                         .collect(Collectors
                                 .toCollection(ArrayList::new)))
                 .build();
-
 
         //Treatment
         ResponseEntity<TreatmentList> treatmentResponse = treatmentServiceFeignClient.getByVisitId(id);
@@ -239,7 +292,6 @@ public class VisitBffServiceImpl implements VisitBffService {
                         .collect(Collectors
                                 .toCollection(ArrayList::new)))
                 .build();
-
 
         //Recommendation
         ResponseEntity<RecommendationList> recommendationResponse = recommendationServiceFeignClient.getByVisitId(id);
@@ -354,15 +406,9 @@ public class VisitBffServiceImpl implements VisitBffService {
                         .mobilePhone(companionDtoResponse.getBody().getMobilePhone())
                         .email(companionDtoResponse.getBody().getEmail())
                         .build())
-                .visit(VisitTypeDto
-                        .builder()
-                        .build())
-                .billing(BillingDto
-                        .builder()
-                        .build())
-                .disease(DiseaseDto
-                        .builder()
-                        .build())
+                .visit(visitTypeDtoResponse.getBody())
+                .billing(billingDtoResponse.getBody())
+                .disease(diseaseDtoResponse.getBody())
                 .reason(visitDtoResponse.getBody().getReason())
                 .height(visitDtoResponse.getBody().getHeight())
                 .systolicBloodPressure(visitDtoResponse.getBody().getSystolicBloodPressure())
@@ -371,24 +417,12 @@ public class VisitBffServiceImpl implements VisitBffService {
                 .heartRate(visitDtoResponse.getBody().getHeartRate())
                 .temperature(visitDtoResponse.getBody().getTemperature())
                 .observations(visitDtoResponse.getBody().getObservations())
-                .systemCheckList(SystemCheckListBffResponse
-                        .builder()
-                        .build())
-                .bodyCheckList(BodyCheckListBffResponse
-                        .builder()
-                        .build())
-                .treatmentList(TreatmentListBffResponse
-                        .builder()
-                        .build())
-                .recommendationList(RecommendationListBffResponse
-                        .builder()
-                        .build())
-                .disabilityList(DisabilityListBffResponse
-                        .builder()
-                        .build())
-                .remissionList(RemissionListBffResponse
-                        .builder()
-                        .build())
+                .systemCheckList(systemCheckListBffResponse)
+                .bodyCheckList(bodyCheckListBffResponse)
+                .treatmentList(treatmentListBffResponse)
+                .recommendationList(recommendationListBffResponse)
+                .disabilityList(disabilityListBffResponse)
+                .remissionList(remissionListBffResponse)
                 .build();
         return null;
     }
