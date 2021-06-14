@@ -60,6 +60,10 @@ spring:
         qos-enabled: true
         receive-timeout: 1000
         time-to-live: 36000
+  sleuth:
+    messaging:
+      jms:
+        enabled: false
 #General configuration
 server:
   port: 8111
