@@ -24,7 +24,7 @@ spring:
       config: classpath:ehcache.xml
   #Zipkin
   zipkin:
-    enabled: false
+    baseUrl: http://localhost:9411/
 #ActiveMQ
   activemq:
     broker-url: tcp://localhost:61616
@@ -77,7 +77,7 @@ logging:
 #Exceptions
 visit-bff:
   success: The operation was successful.
-  prefix: 'BFF-VIST:'
+  prefix: 'VISIT-BFF:'
   error:
     general: There was an unexpected error. Please try again.
 log4j:
@@ -85,3 +85,8 @@ log4j:
     org:
       apache:
         activemq: DEBUG
+#Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://netflix:eureka@localhost:8761/eureka
