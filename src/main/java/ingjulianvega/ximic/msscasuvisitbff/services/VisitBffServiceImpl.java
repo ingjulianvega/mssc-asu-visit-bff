@@ -122,13 +122,13 @@ public class VisitBffServiceImpl implements VisitBffService {
         ResponseEntity<VisitDto> visitDtoResponse = visitServiceFeignClient.getById(id);
 
         //Patient
-        ResponseEntity<PatientDto> patientDtoResponse = null;
-        ResponseEntity<DocumentTypeDto> documentTypeDtoResponse = null;
-        ResponseEntity<MaritalStatusDto> maritalStatusDtoResponse = null;
-        ResponseEntity<GenderDto> genderDtoResponse = null;
-        ResponseEntity<OccupationDto> occupationDtoResponse = null;
-        ResponseEntity<EpsDto> epsDtoResponse = null;
-        ResponseEntity<ArlDto> arlDtoResponse = null;
+        ResponseEntity<PatientDto> patientDtoResponse;
+        ResponseEntity<DocumentTypeDto> documentTypeDtoResponse;
+        ResponseEntity<MaritalStatusDto> maritalStatusDtoResponse;
+        ResponseEntity<GenderDto> genderDtoResponse;
+        ResponseEntity<OccupationDto> occupationDtoResponse;
+        ResponseEntity<EpsDto> epsDtoResponse;
+        ResponseEntity<ArlDto> arlDtoResponse;
         Optional<UUID> optPatientId = Optional.ofNullable(visitDtoResponse.getBody().getPatientId());
         if(optPatientId.isPresent()) {
             patientDtoResponse = patientServiceFeignClient.getById(visitDtoResponse.getBody().getPatientId());
