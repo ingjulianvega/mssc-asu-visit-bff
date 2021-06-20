@@ -132,21 +132,22 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<UUID> optPatientId = Optional.ofNullable(visitDtoResponse.getBody().getPatientId());
         if(optPatientId.isPresent()) {
             patientDtoResponse = patientServiceFeignClient.getById(visitDtoResponse.getBody().getPatientId());
+            System.out.println(">> patientDtoResponse: " + patientDtoResponse);
             //DocumentType
             documentTypeDtoResponse = documentTypeServiceFeignClient.getById(patientDtoResponse.getBody().getDocumentTypeId());
-
+            System.out.println(">> documentTypeDtoResponse: " + documentTypeDtoResponse);
             //MaritalStatus
             maritalStatusDtoResponse = maritalStatusServiceFeignClient.getById(patientDtoResponse.getBody().getMaritalStatusId());
-
+            System.out.println(">> maritalStatusDtoResponse: " + maritalStatusDtoResponse);
             //Gender
             genderDtoResponse = genderServiceFeignClient.getById(patientDtoResponse.getBody().getGenderId());
-
+            System.out.println(">> genderDtoResponse: " + genderDtoResponse);
             //Occupation
             occupationDtoResponse = occupationServiceFeignClient.getById(patientDtoResponse.getBody().getOccupationId());
-
+            System.out.println(">> occupationDtoResponse: " + occupationDtoResponse);
             //Eps
             epsDtoResponse = epsServiceFeignClient.getById(patientDtoResponse.getBody().getEpsId());
-
+            System.out.println(">> epsDtoResponse: " + epsDtoResponse);
             //Arl
             arlDtoResponse = arlServiceFeignClient.getById(patientDtoResponse.getBody().getArlId());
         }else{
