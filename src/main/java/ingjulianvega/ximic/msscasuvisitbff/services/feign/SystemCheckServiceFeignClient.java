@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-system-check")
+//@FeignClient(name = "mssc-asu-system-check")
+@FeignClient(name = "simple-client100", url = "http://localhost:8112")
 public interface SystemCheckServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.SYSTEM_CHECK_BY_VISIT_ID_PATH)

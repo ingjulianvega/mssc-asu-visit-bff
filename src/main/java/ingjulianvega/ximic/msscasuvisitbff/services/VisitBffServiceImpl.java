@@ -44,7 +44,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     public static final String COMPANION_BY_ID_PATH = "/asu/v1/companion/{id}";
     public static final String EVIDENCE_BY_ID_PATH = "/asu/v1/evidence/{id}";
     public static final String EVIDENCE_TYPE_BY_ID_PATH = "/asu/v1/evidence-type/{id}";
-    public static final String DISEASE_BY_ID_PATH = "/asu/v1/evidence-type/{id}";
+    public static final String DISEASE_BY_ID_PATH = "/asu/v1/disease/{id}";
     public static final String SYSTEM_BY_ID_PATH = "/asu/v1/system/{id}";
     public static final String SYMPTOM_BY_ID_PATH = "/asu/v1/symptom/{id}";
     public static final String INTENSITY_BY_ID_PATH = "/asu/v1/intensity/{id}";
@@ -166,8 +166,6 @@ public class VisitBffServiceImpl implements VisitBffService {
             if (optCompanionDocumentTypeId.isPresent()) {
                 companionDocumentTypeDtoResponse = documentTypeServiceFeignClient.getById(companionDtoResponse.getBody().getDocumentTypeId());
             }
-        }else{
-            throw new VisitBffException("","No se pudo obtener CompanionId");
         }
 
         //Visit type
@@ -241,7 +239,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                         .getBodyCheckList()
                         .parallelStream()
                         .map(bodyCheckDto -> {
-                            //BodPart
+                            //BodyPart
                             ResponseEntity<BodyPartDto> bodyPartDtoResponse = bodyPartServiceFeignClient.getById(bodyCheckDto.getBodyPartId());
 
                             return BodyCheckDtoBffResponse
@@ -274,7 +272,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                             //AdministrationMethod
                             ResponseEntity<AdministrationMethodDto> administrationMethodDtoResponse = administrationMethodServiceFeignClient.getById(treatmentDto.getAdministrationMethodId());
 
-                            //DurationId
+                            //Duration
                             ResponseEntity<DurationDto> durationDtoResponse = durationServiceFeignClient.getById(treatmentDto.getDurationId());
 
                             return TreatmentDtoBffResponse

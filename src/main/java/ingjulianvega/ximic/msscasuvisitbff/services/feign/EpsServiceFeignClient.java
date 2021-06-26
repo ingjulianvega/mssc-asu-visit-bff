@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-eps")
+//@FeignClient(name = "mssc-asu-eps")
+@FeignClient(name = "simple-client5", url = "http://localhost:8112")
 public interface EpsServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.EPS_BY_ID_PATH)

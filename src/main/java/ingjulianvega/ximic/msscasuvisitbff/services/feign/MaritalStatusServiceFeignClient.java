@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-marital-status")
+//@FeignClient(name = "mssc-asu-marital-status")
+@FeignClient(name = "simple-client2", url = "http://localhost:8112")
 public interface MaritalStatusServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.MARITAL_STATUS_BY_ID_PATH)

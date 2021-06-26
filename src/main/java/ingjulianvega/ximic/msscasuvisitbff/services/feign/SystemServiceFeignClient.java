@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-system")
+//@FeignClient(name = "mssc-asu-system")
+@FeignClient(name = "simple-client101", url = "http://localhost:8112")
 public interface SystemServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.SYSTEM_BY_ID_PATH)

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-gender")
+//@FeignClient(name = "mssc-asu-gender")
+@FeignClient(name = "simple-client3", url = "http://localhost:8112")
 public interface GenderServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.GENDER_BY_ID_PATH)
