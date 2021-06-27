@@ -224,7 +224,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                         })
                         .collect(Collectors
                                 .toCollection(ArrayList::new)))
-                .build();*/
+                .build();
 
 
         //Body check
@@ -234,7 +234,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                 .builder()
                 .bodyCheckList(bodyCheckResponse
                         .getBody()
-                        .getBodyCheckList()
+                        .getBodyCheckDtoList()
                         .parallelStream()
                         .map(bodyCheckDto -> {
                             //BodyPart
@@ -258,7 +258,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                 .builder()
                 .treatmentList(treatmentResponse
                         .getBody()
-                        .getTreatmentList()
+                        .getTreatmentDtoList()
                         .parallelStream()
                         .map(treatmentDto -> {
                             //Medicine
@@ -288,7 +288,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                         })
                         .collect(Collectors
                                 .toCollection(ArrayList::new)))
-                .build();
+                .build();*/
 
         //Recommendation
         ResponseEntity<RecommendationList> recommendationResponse = recommendationServiceFeignClient.getByVisitId(id);
@@ -447,7 +447,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<BodyCheckList> optBodyCheckList = Optional.of(visit.getBodyCheckList());
         if( optBodyCheckList.isPresent()){
             visit.getBodyCheckList()
-                    .bodyCheckList
+                    .bodyCheckDtoList
                     .parallelStream()
                     .forEach(bodyCheckDto -> {
                         jmsTemplate.convertAndSend(JmsConfig.UPDATE_BODY_CHECK_QUEUE,
@@ -458,7 +458,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<TreatmentList> optTreatmentList = Optional.of(visit.getTreatmentList());
         if( optTreatmentList.isPresent()){
             visit.getTreatmentList()
-                    .treatmentList
+                    .treatmentDtoList
                     .parallelStream()
                     .forEach(treatmentDto -> {
                         jmsTemplate.convertAndSend(JmsConfig.UPDATE_TREATMENT_QUEUE,

@@ -16,5 +16,5 @@ public class TreatmentList implements Serializable {
 
     static final long serialVersionUID = -3719448499559364843L;
 
-    public ArrayList<TreatmentDto> treatmentList;
+    public ArrayList<TreatmentDto> treatmentDtoList;
 }

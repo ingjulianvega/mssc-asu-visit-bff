@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-duration")
+//@FeignClient(name = "mssc-asu-duration")
+@FeignClient(name = "DurationServiceFeignClient", url = "http://localhost:8112")
 public interface DurationServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.DURATION_BY_ID_PATH)

@@ -16,5 +16,5 @@ public class BodyCheckList implements Serializable {
 
     static final long serialVersionUID = -1974022327701653015L;
 
-    public ArrayList<BodyCheckDto> bodyCheckList;
+    public ArrayList<BodyCheckDto> bodyCheckDtoList;
 }

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-medicine")
+//@FeignClient(name = "mssc-asu-medicine")
+@FeignClient(name = "MedicineServiceFeignClient", url = "http://localhost:8112")
 public interface MedicineServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.MEDICINE_BY_ID_PATH)

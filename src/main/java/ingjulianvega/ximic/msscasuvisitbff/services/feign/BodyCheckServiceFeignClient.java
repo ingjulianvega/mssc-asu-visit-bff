@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.UUID;
 
 //@FeignClient(name = "mssc-asu-body-check")
-@FeignClient(name = "simple-client1000", url = "http://localhost:8112")
+@FeignClient(name = "BodyCheckServiceFeignClient", url = "http://localhost:8112")
 public interface BodyCheckServiceFeignClient {
 
-    @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.BODY_CHECK_BY_VISIT_ID_PATH)
-    ResponseEntity<BodyCheckList> getByVisitId(@PathVariable(value = "visit-id")  UUID visitId);
+    @RequestMapping(method = RequestMethod.GET, value = VisitBffServiceImpl.BODY_CHECK_BY_VISIT_ID_PATH)
+    ResponseEntity<BodyCheckList> getByVisitId(@PathVariable(value = "visit-id") UUID visitId);
 
 }

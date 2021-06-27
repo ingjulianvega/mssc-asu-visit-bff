@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-administration-method")
+//@FeignClient(name = "mssc-asu-administration-method")
+@FeignClient(name = "AdministrationMethodServiceFeignClient", url = "http://localhost:8112")
 public interface AdministrationMethodServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.ADMINISTRATION_METHOD_BY_ID_PATH)
