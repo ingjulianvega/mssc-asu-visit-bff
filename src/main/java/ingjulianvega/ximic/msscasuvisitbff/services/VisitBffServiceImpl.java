@@ -121,7 +121,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         log.debug("getDetailById()...");
         ResponseEntity<VisitDto> visitDtoResponse = visitServiceFeignClient.getById(id);
 
-        /*//Patient
+        //Patient
         ResponseEntity<PatientDto> patientDtoResponse;
         ResponseEntity<DocumentTypeDto> documentTypeDtoResponse;
         ResponseEntity<MaritalStatusDto> maritalStatusDtoResponse;
@@ -288,7 +288,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                         })
                         .collect(Collectors
                                 .toCollection(ArrayList::new)))
-                .build();*/
+                .build();
 
         //Recommendation
         ResponseEntity<RecommendationList> recommendationResponse = recommendationServiceFeignClient.getByVisitId(id);
@@ -297,7 +297,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                 .builder()
                 .recommendationList(recommendationResponse
                         .getBody()
-                        .getRecommendationList()
+                        .getRecommendationDtoList()
                         .parallelStream()
                         .map(recommendationDto -> {
                             //RecommendationType
@@ -322,7 +322,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                 .builder()
                 .remissionList(remissionResponse
                         .getBody()
-                        .getRemissionList()
+                        .getRemissionDtoList()
                         .parallelStream()
                         .map(remissionDto -> {
                             //RemissionType
@@ -347,7 +347,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                 .builder()
                 .disabilityList(disabilityResponse
                         .getBody()
-                        .getDisabilityList()
+                        .getDisabilityDtoList()
                         .parallelStream()
                         .map(disabilityDto -> {
                             //DisabilityType
@@ -370,58 +370,57 @@ public class VisitBffServiceImpl implements VisitBffService {
                                 .toCollection(ArrayList::new)))
                 .build();
 
-//        VisitBffResponse
-//                .builder()
-//                .patient(PatientDtoBffResponse
-//                        .builder()
-//                        .id(visitDtoResponse.getBody().getPatientId())
-//                        .documentType(documentTypeDtoResponse.getBody())
-//                        .documentNumber(patientDtoResponse.getBody().getDocumentNumber())
-//                        .name(patientDtoResponse.getBody().getName())
-//                        .firstLastName(patientDtoResponse.getBody().getFirstLastName())
-//                        .secondLastName(patientDtoResponse.getBody().getSecondLastName())
-//                        .homePhone(patientDtoResponse.getBody().getHomePhone())
-//                        .mobilePhone(patientDtoResponse.getBody().getMobilePhone())
-//                        .email(patientDtoResponse.getBody().getEmail())
-//                        .birthDate(patientDtoResponse.getBody().getBirthDate())
-//                        .hand(patientDtoResponse.getBody().getHand())
-//                        .address(patientDtoResponse.getBody().getAddress())
-//                        .maritalStatus(maritalStatusDtoResponse.getBody())
-//                        .gender(genderDtoResponse.getBody())
-//                        .occupation(occupationDtoResponse.getBody())
-//                        .eps(epsDtoResponse.getBody())
-//                        .arl(arlDtoResponse.getBody())
-//                        .build())
-//                .companion(CompanionDtoBffResponse
-//                        .builder()
-//                        .id(companionDtoResponse.getBody().getId())
-//                        .documentType(companionDocumentTypeDtoResponse.getBody())
-//                        .name(companionDtoResponse.getBody().getName())
-//                        .firstLastName(companionDtoResponse.getBody().getFirstLastName())
-//                        .secondLastName(companionDtoResponse.getBody().getSecondLastName())
-//                        .homePhone(companionDtoResponse.getBody().getHomePhone())
-//                        .mobilePhone(companionDtoResponse.getBody().getMobilePhone())
-//                        .email(companionDtoResponse.getBody().getEmail())
-//                        .build())
-//                .visit(visitTypeDtoResponse.getBody())
-//                .billing(billingDtoResponse.getBody())
-//                .disease(diseaseDtoResponse.getBody())
-//                .reason(visitDtoResponse.getBody().getReason())
-//                .height(visitDtoResponse.getBody().getHeight())
-//                .systolicBloodPressure(visitDtoResponse.getBody().getSystolicBloodPressure())
-//                .diastolicBloodPressure(visitDtoResponse.getBody().getDiastolicBloodPressure())
-//                .weight(visitDtoResponse.getBody().getWeight())
-//                .heartRate(visitDtoResponse.getBody().getHeartRate())
-//                .temperature(visitDtoResponse.getBody().getTemperature())
-//                .observations(visitDtoResponse.getBody().getObservations())
-//                .systemCheckList(systemCheckListBffResponse)
-//                .bodyCheckList(bodyCheckListBffResponse)
-//                .treatmentList(treatmentListBffResponse)
-//                .recommendationList(recommendationListBffResponse)
-//                .disabilityList(disabilityListBffResponse)
-//                .remissionList(remissionListBffResponse)
-//                .build();
-        return null;
+        return VisitBffResponse
+                .builder()
+                .patient(PatientDtoBffResponse
+                        .builder()
+                        .id(visitDtoResponse.getBody().getPatientId())
+                        .documentType(documentTypeDtoResponse.getBody())
+                        .documentNumber(patientDtoResponse.getBody().getDocumentNumber())
+                        .name(patientDtoResponse.getBody().getName())
+                        .firstLastName(patientDtoResponse.getBody().getFirstLastName())
+                        .secondLastName(patientDtoResponse.getBody().getSecondLastName())
+                        .homePhone(patientDtoResponse.getBody().getHomePhone())
+                        .mobilePhone(patientDtoResponse.getBody().getMobilePhone())
+                        .email(patientDtoResponse.getBody().getEmail())
+                        .birthDate(patientDtoResponse.getBody().getBirthDate())
+                        .hand(patientDtoResponse.getBody().getHand())
+                        .address(patientDtoResponse.getBody().getAddress())
+                        .maritalStatus(maritalStatusDtoResponse.getBody())
+                        .gender(genderDtoResponse.getBody())
+                        .occupation(occupationDtoResponse.getBody())
+                        .eps(epsDtoResponse.getBody())
+                        .arl(arlDtoResponse.getBody())
+                        .build())
+                .companion(CompanionDtoBffResponse
+                        .builder()
+                        .id(companionDtoResponse.getBody().getId())
+                        .documentType(companionDocumentTypeDtoResponse.getBody())
+                        .name(companionDtoResponse.getBody().getName())
+                        .firstLastName(companionDtoResponse.getBody().getFirstLastName())
+                        .secondLastName(companionDtoResponse.getBody().getSecondLastName())
+                        .homePhone(companionDtoResponse.getBody().getHomePhone())
+                        .mobilePhone(companionDtoResponse.getBody().getMobilePhone())
+                        .email(companionDtoResponse.getBody().getEmail())
+                        .build())
+                .visit(visitTypeDtoResponse.getBody())
+                .billing(billingDtoResponse.getBody())
+                .disease(diseaseDtoResponse.getBody())
+                .reason(visitDtoResponse.getBody().getReason())
+                .height(visitDtoResponse.getBody().getHeight())
+                .systolicBloodPressure(visitDtoResponse.getBody().getSystolicBloodPressure())
+                .diastolicBloodPressure(visitDtoResponse.getBody().getDiastolicBloodPressure())
+                .weight(visitDtoResponse.getBody().getWeight())
+                .heartRate(visitDtoResponse.getBody().getHeartRate())
+                .temperature(visitDtoResponse.getBody().getTemperature())
+                .observations(visitDtoResponse.getBody().getObservations())
+                .systemCheckList(systemCheckListBffResponse)
+                .bodyCheckList(bodyCheckListBffResponse)
+                .treatmentList(treatmentListBffResponse)
+                .recommendationList(recommendationListBffResponse)
+                .disabilityList(disabilityListBffResponse)
+                .remissionList(remissionListBffResponse)
+                .build();
     }
 
     @Transactional
@@ -469,7 +468,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<RecommendationList> optRecommendationList = Optional.of(visit.getRecommendationList());
         if( optRecommendationList.isPresent()){
             visit.getRecommendationList()
-                    .recommendationList
+                    .recommendationDtoList
                     .parallelStream()
                     .forEach(recommendationDto -> {
                         jmsTemplate.convertAndSend(JmsConfig.UPDATE_RECOMMENDATION_QUEUE,
@@ -480,7 +479,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<RemissionList> optRemissionList = Optional.of(visit.getRemissionList());
         if( optRemissionList.isPresent()){
             visit.getRemissionList()
-                    .remissionList
+                    .remissionDtoList
                     .parallelStream()
                     .forEach(remissionDto -> {
                         jmsTemplate.convertAndSend(JmsConfig.UPDATE_REMISSION_QUEUE,
@@ -491,7 +490,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<DisabilityList> optDisabilityList = Optional.of(visit.getDisabilityList());
         if( optDisabilityList.isPresent()){
             visit.getDisabilityList()
-                    .disabilityList
+                    .disabilityDtoList
                     .parallelStream()
                     .forEach(disabilityDto -> {
                         jmsTemplate.convertAndSend(JmsConfig.UPDATE_DISABILITY_QUEUE,

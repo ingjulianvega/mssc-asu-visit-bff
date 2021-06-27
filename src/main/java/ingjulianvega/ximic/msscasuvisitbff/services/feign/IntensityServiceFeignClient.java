@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.UUID;
 
 //@FeignClient(name = "mssc-asu-intensity")
-@FeignClient(name = "simple-client103", url = "http://localhost:8112")
+@FeignClient(name = "IntensityServiceFeignClient", url = "http://localhost:8112")
 public interface IntensityServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.INTENSITY_BY_ID_PATH)

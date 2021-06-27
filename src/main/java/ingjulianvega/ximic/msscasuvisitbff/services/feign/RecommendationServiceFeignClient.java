@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-recommendation")
+//@FeignClient(name = "mssc-asu-recommendation")
+@FeignClient(name = "RecommendationServiceFeignClient", url = "http://localhost:8112")
 public interface RecommendationServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.RECOMMENDATION_BY_VISIT_ID_PATH)
-    ResponseEntity<RecommendationList> getByVisitId(@PathVariable UUID visitId);
+    ResponseEntity<RecommendationList> getByVisitId(@PathVariable(value = "visit-id") UUID visitId);
 
 }

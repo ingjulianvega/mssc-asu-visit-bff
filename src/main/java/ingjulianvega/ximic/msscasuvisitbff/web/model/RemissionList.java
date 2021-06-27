@@ -16,5 +16,5 @@ public class RemissionList implements Serializable {
 
     static final long serialVersionUID = -3708365960319182086L;
 
-    public ArrayList<RemissionDto> remissionList;
+    public ArrayList<RemissionDto> remissionDtoList;
 }

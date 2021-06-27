@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-disability-type")
+//@FeignClient(name = "mssc-asu-disability-type")
+@FeignClient(name = "DisabilityTypeServiceFeignClient", url = "http://localhost:8112")
 public interface DisabilityTypeServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.DISABILITY_TYPE_BY_ID_PATH)

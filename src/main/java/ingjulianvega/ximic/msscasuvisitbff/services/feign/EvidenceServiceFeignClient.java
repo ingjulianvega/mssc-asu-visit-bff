@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-evidence")
+//@FeignClient(name = "mssc-asu-evidence")
+@FeignClient(name = "EvidenceServiceFeignClient", url = "http://localhost:8112")
 public interface EvidenceServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.EVIDENCE_BY_ID_PATH)

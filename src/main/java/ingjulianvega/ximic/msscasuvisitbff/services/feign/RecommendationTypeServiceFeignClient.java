@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-recommendation-type")
+//@FeignClient(name = "mssc-asu-recommendation-type")
+@FeignClient(name = "RecommendationTypeServiceFeignClient", url = "http://localhost:8112")
 public interface RecommendationTypeServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.RECOMMENDATION_TYPE_BY_ID_PATH)

@@ -16,5 +16,5 @@ public class RecommendationList implements Serializable {
 
     static final long serialVersionUID = 9062065051034140215L;
 
-    public ArrayList<RecommendationDto> recommendationList;
+    public ArrayList<RecommendationDto> recommendationDtoList;
 }

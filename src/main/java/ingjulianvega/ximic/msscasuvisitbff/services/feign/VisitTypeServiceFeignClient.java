@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.UUID;
 
 //@FeignClient(name = "mssc-asu-visit-type")
-@FeignClient(name = "simple-client8", url = "http://localhost:8112")
+@FeignClient(name = "VisitTypeServiceFeignClient", url = "http://localhost:8112")
 public interface VisitTypeServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.VISIT_TYPE_BY_ID_PATH)

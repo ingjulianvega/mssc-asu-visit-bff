@@ -13,7 +13,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 //@FeignClient(name = "mssc-asu-visit")
-@FeignClient(name = "simple-client", url = "http://localhost:8112")
+@FeignClient(name = "VisitServiceFeignClient", url = "http://localhost:8112")
 public interface VisitServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.VISIT_BY_ID_PATH)

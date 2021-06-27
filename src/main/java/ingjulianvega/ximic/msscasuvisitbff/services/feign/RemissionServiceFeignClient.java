@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-remission")
+//@FeignClient(name = "mssc-asu-remission")
+@FeignClient(name = "RemissionServiceFeignClient", url = "http://localhost:8112")
 public interface RemissionServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.REMISSION_BY_VISIT_ID_PATH)
-    ResponseEntity<RemissionList> getByVisitId(@PathVariable UUID visitId);
+    ResponseEntity<RemissionList> getByVisitId(@PathVariable(value = "visit-id") UUID visitId);
 
 }

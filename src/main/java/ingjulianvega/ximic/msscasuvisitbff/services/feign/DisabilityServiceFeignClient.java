@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.UUID;
 
-@FeignClient(name = "mssc-asu-disability")
+//@FeignClient(name = "mssc-asu-disability")
+@FeignClient(name = "DisabilityServiceFeignClient", url = "http://localhost:8112")
 public interface DisabilityServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.DISABILITY_BY_VISIT_ID_PATH)
-    ResponseEntity<DisabilityList> getByVisitId(@PathVariable UUID visitId);
+    ResponseEntity<DisabilityList> getByVisitId(@PathVariable(value = "visit-id") UUID visitId);
 
 }

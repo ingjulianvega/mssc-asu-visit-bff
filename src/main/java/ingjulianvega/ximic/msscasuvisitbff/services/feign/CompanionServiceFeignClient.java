@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.UUID;
 
 //@FeignClient(name = "mssc-asu-companion")
-@FeignClient(name = "simple-client6", url = "http://localhost:8112")
+@FeignClient(name = "CompanionServiceFeignClient", url = "http://localhost:8112")
 public interface CompanionServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.COMPANION_BY_ID_PATH)

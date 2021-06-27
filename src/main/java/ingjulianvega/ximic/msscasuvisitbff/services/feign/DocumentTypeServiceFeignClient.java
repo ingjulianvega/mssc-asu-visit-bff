@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.UUID;
 
 //@FeignClient(name = "mssc-asu-document-type")
-@FeignClient(name = "simple-client7", url = "http://localhost:8112")
+@FeignClient(name = "DocumentTypeServiceFeignClient", url = "http://localhost:8112")
 public interface DocumentTypeServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.DOCUMENT_TYPE_BY_ID_PATH)
