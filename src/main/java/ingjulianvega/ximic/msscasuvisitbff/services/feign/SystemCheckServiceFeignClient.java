@@ -15,6 +15,5 @@ import java.util.UUID;
 public interface SystemCheckServiceFeignClient {
 
     @RequestMapping(method = RequestMethod.GET,value = VisitBffServiceImpl.SYSTEM_CHECK_BY_VISIT_ID_PATH)
-    ResponseEntity<SystemCheckList> getByVisitId(@PathVariable UUID visitId);
-
+    ResponseEntity<SystemCheckList> getByVisitId(@PathVariable(value = "visit-id") UUID visitId);
 }

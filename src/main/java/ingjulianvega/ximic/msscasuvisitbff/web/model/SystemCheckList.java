@@ -16,5 +16,5 @@ public class SystemCheckList implements Serializable {
 
     static final long serialVersionUID = 6624527498309224934L;
 
-    public ArrayList<SystemCheckDto> systemCheckList;
+    public ArrayList<SystemCheckDto> systemCheckDtoList;
 }

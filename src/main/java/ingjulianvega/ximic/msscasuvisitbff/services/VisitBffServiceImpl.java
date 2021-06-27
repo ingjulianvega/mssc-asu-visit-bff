@@ -121,7 +121,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         log.debug("getDetailById()...");
         ResponseEntity<VisitDto> visitDtoResponse = visitServiceFeignClient.getById(id);
 
-        //Patient
+        /*//Patient
         ResponseEntity<PatientDto> patientDtoResponse;
         ResponseEntity<DocumentTypeDto> documentTypeDtoResponse;
         ResponseEntity<MaritalStatusDto> maritalStatusDtoResponse;
@@ -198,13 +198,12 @@ public class VisitBffServiceImpl implements VisitBffService {
 
         //System check
         ResponseEntity<SystemCheckList> systemCheckResponse = systemCheckServiceFeignClient.getByVisitId(id);
-        //TODO if not null
 
         SystemCheckListBffResponse systemCheckListBffResponse = SystemCheckListBffResponse
                 .builder()
                 .systemCheckList(systemCheckResponse
                         .getBody()
-                        .getSystemCheckList()
+                        .getSystemCheckDtoList()
                         .parallelStream()
                         .map(systemCheckDto -> {
                             //System
@@ -225,13 +224,12 @@ public class VisitBffServiceImpl implements VisitBffService {
                         })
                         .collect(Collectors
                                 .toCollection(ArrayList::new)))
-                .build();
+                .build();*/
 
 
         //Body check
         ResponseEntity<BodyCheckList> bodyCheckResponse = bodyCheckServiceFeignClient.getByVisitId(id);
 
-        //TODO if not null
         BodyCheckListBffResponse bodyCheckListBffResponse = BodyCheckListBffResponse
                 .builder()
                 .bodyCheckList(bodyCheckResponse
@@ -372,57 +370,57 @@ public class VisitBffServiceImpl implements VisitBffService {
                                 .toCollection(ArrayList::new)))
                 .build();
 
-        VisitBffResponse
-                .builder()
-                .patient(PatientDtoBffResponse
-                        .builder()
-                        .id(visitDtoResponse.getBody().getPatientId())
-                        .documentType(documentTypeDtoResponse.getBody())
-                        .documentNumber(patientDtoResponse.getBody().getDocumentNumber())
-                        .name(patientDtoResponse.getBody().getName())
-                        .firstLastName(patientDtoResponse.getBody().getFirstLastName())
-                        .secondLastName(patientDtoResponse.getBody().getSecondLastName())
-                        .homePhone(patientDtoResponse.getBody().getHomePhone())
-                        .mobilePhone(patientDtoResponse.getBody().getMobilePhone())
-                        .email(patientDtoResponse.getBody().getEmail())
-                        .birthDate(patientDtoResponse.getBody().getBirthDate())
-                        .hand(patientDtoResponse.getBody().getHand())
-                        .address(patientDtoResponse.getBody().getAddress())
-                        .maritalStatus(maritalStatusDtoResponse.getBody())
-                        .gender(genderDtoResponse.getBody())
-                        .occupation(occupationDtoResponse.getBody())
-                        .eps(epsDtoResponse.getBody())
-                        .arl(arlDtoResponse.getBody())
-                        .build())
-                .companion(CompanionDtoBffResponse
-                        .builder()
-                        .id(companionDtoResponse.getBody().getId())
-                        .documentType(companionDocumentTypeDtoResponse.getBody())
-                        .name(companionDtoResponse.getBody().getName())
-                        .firstLastName(companionDtoResponse.getBody().getFirstLastName())
-                        .secondLastName(companionDtoResponse.getBody().getSecondLastName())
-                        .homePhone(companionDtoResponse.getBody().getHomePhone())
-                        .mobilePhone(companionDtoResponse.getBody().getMobilePhone())
-                        .email(companionDtoResponse.getBody().getEmail())
-                        .build())
-                .visit(visitTypeDtoResponse.getBody())
-                .billing(billingDtoResponse.getBody())
-                .disease(diseaseDtoResponse.getBody())
-                .reason(visitDtoResponse.getBody().getReason())
-                .height(visitDtoResponse.getBody().getHeight())
-                .systolicBloodPressure(visitDtoResponse.getBody().getSystolicBloodPressure())
-                .diastolicBloodPressure(visitDtoResponse.getBody().getDiastolicBloodPressure())
-                .weight(visitDtoResponse.getBody().getWeight())
-                .heartRate(visitDtoResponse.getBody().getHeartRate())
-                .temperature(visitDtoResponse.getBody().getTemperature())
-                .observations(visitDtoResponse.getBody().getObservations())
-                .systemCheckList(systemCheckListBffResponse)
-                .bodyCheckList(bodyCheckListBffResponse)
-                .treatmentList(treatmentListBffResponse)
-                .recommendationList(recommendationListBffResponse)
-                .disabilityList(disabilityListBffResponse)
-                .remissionList(remissionListBffResponse)
-                .build();
+//        VisitBffResponse
+//                .builder()
+//                .patient(PatientDtoBffResponse
+//                        .builder()
+//                        .id(visitDtoResponse.getBody().getPatientId())
+//                        .documentType(documentTypeDtoResponse.getBody())
+//                        .documentNumber(patientDtoResponse.getBody().getDocumentNumber())
+//                        .name(patientDtoResponse.getBody().getName())
+//                        .firstLastName(patientDtoResponse.getBody().getFirstLastName())
+//                        .secondLastName(patientDtoResponse.getBody().getSecondLastName())
+//                        .homePhone(patientDtoResponse.getBody().getHomePhone())
+//                        .mobilePhone(patientDtoResponse.getBody().getMobilePhone())
+//                        .email(patientDtoResponse.getBody().getEmail())
+//                        .birthDate(patientDtoResponse.getBody().getBirthDate())
+//                        .hand(patientDtoResponse.getBody().getHand())
+//                        .address(patientDtoResponse.getBody().getAddress())
+//                        .maritalStatus(maritalStatusDtoResponse.getBody())
+//                        .gender(genderDtoResponse.getBody())
+//                        .occupation(occupationDtoResponse.getBody())
+//                        .eps(epsDtoResponse.getBody())
+//                        .arl(arlDtoResponse.getBody())
+//                        .build())
+//                .companion(CompanionDtoBffResponse
+//                        .builder()
+//                        .id(companionDtoResponse.getBody().getId())
+//                        .documentType(companionDocumentTypeDtoResponse.getBody())
+//                        .name(companionDtoResponse.getBody().getName())
+//                        .firstLastName(companionDtoResponse.getBody().getFirstLastName())
+//                        .secondLastName(companionDtoResponse.getBody().getSecondLastName())
+//                        .homePhone(companionDtoResponse.getBody().getHomePhone())
+//                        .mobilePhone(companionDtoResponse.getBody().getMobilePhone())
+//                        .email(companionDtoResponse.getBody().getEmail())
+//                        .build())
+//                .visit(visitTypeDtoResponse.getBody())
+//                .billing(billingDtoResponse.getBody())
+//                .disease(diseaseDtoResponse.getBody())
+//                .reason(visitDtoResponse.getBody().getReason())
+//                .height(visitDtoResponse.getBody().getHeight())
+//                .systolicBloodPressure(visitDtoResponse.getBody().getSystolicBloodPressure())
+//                .diastolicBloodPressure(visitDtoResponse.getBody().getDiastolicBloodPressure())
+//                .weight(visitDtoResponse.getBody().getWeight())
+//                .heartRate(visitDtoResponse.getBody().getHeartRate())
+//                .temperature(visitDtoResponse.getBody().getTemperature())
+//                .observations(visitDtoResponse.getBody().getObservations())
+//                .systemCheckList(systemCheckListBffResponse)
+//                .bodyCheckList(bodyCheckListBffResponse)
+//                .treatmentList(treatmentListBffResponse)
+//                .recommendationList(recommendationListBffResponse)
+//                .disabilityList(disabilityListBffResponse)
+//                .remissionList(remissionListBffResponse)
+//                .build();
         return null;
     }
 
@@ -438,7 +436,7 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<SystemCheckList> optSystemCheckList = Optional.of(visit.getSystemCheckList());
         if( optSystemCheckList.isPresent()){
             visit.getSystemCheckList()
-                    .systemCheckList
+                    .systemCheckDtoList
                     .parallelStream()
                     .forEach(systemCheckDto -> {
                         jmsTemplate.convertAndSend(JmsConfig.UPDATE_SYSTEM_CHECK_QUEUE,
