@@ -7,6 +7,7 @@ import ingjulianvega.ximic.msscasuvisitbff.exception.VisitBffException;
 import ingjulianvega.ximic.msscasuvisitbff.services.feign.*;
 import ingjulianvega.ximic.msscasuvisitbff.web.Mappers.VisitBffMapper;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitByIdResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +61,6 @@ public class VisitBffServiceImpl implements VisitBffService {
     public static final String PATIENT_BY_ID_PATH = "/asu/v1/patient/{id}";
     public static final String BILLING_BY_ID_PATH = "/asu/v1/billing/{id}";
 
-
     private final VisitServiceFeignClient visitServiceFeignClient;
     private final SystemCheckServiceFeignClient systemCheckServiceFeignClient;
     private final BodyCheckServiceFeignClient bodyCheckServiceFeignClient;
@@ -91,7 +91,6 @@ public class VisitBffServiceImpl implements VisitBffService {
     private final RemissionTypeServiceFeignClient remissionTypeServiceFeignClient;
     private final DisabilityTypeServiceFeignClient disabilityTypeServiceFeignClient;
 
-
     private final JmsTemplate jmsTemplate;
     private final VisitBffMapper visitBffMapper;
 
@@ -117,7 +116,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     }
 
     @Override
-    public VisitBffResponse getDetailById(UUID id) {
+    public DetailVisitByIdResponse getDetailById(UUID id) {
         log.debug("getDetailById()...");
         ResponseEntity<VisitDto> visitDtoResponse = visitServiceFeignClient.getById(id);
 
@@ -370,7 +369,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                                 .toCollection(ArrayList::new)))
                 .build();
 
-        return VisitBffResponse
+        return DetailVisitByIdResponse
                 .builder()
                 .patient(PatientDtoBffResponse
                         .builder()

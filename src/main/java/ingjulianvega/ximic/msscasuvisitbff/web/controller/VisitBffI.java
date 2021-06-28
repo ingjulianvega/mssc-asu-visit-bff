@@ -1,6 +1,7 @@
 package ingjulianvega.ximic.msscasuvisitbff.web.controller;
 
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitByIdResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -59,7 +60,7 @@ public interface VisitBffI {
 
     @Operation(summary = "Endpoint to get the information of a visit given the id", description = "Returns a visit", tags = {"detail"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "The operation was successful.", content = @Content(schema = @Schema(implementation = VisitBffResponse.class))),
+            @ApiResponse(responseCode = "200", description = "The operation was successful.", content = @Content(schema = @Schema(implementation = DetailVisitByIdResponse.class))),
 
             @ApiResponse(responseCode = "400", description = "400 - business error", content = @Content(schema = @Schema(implementation = ApiError.class))),
 
@@ -67,7 +68,7 @@ public interface VisitBffI {
     @RequestMapping(value = "detail/{id}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<VisitBffResponse> getDetailById(@Parameter(in = ParameterIn.PATH, description = "The visit id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
+    ResponseEntity<DetailVisitByIdResponse> getDetailById(@Parameter(in = ParameterIn.PATH, description = "The visit id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
     
     @Operation(summary = "Endpoint to update the information of a visit given the id", description = "Updates a visit", tags = {"visit"})
     @ApiResponses(value = {

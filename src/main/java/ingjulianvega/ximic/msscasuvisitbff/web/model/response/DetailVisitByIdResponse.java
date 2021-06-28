@@ -1,5 +1,6 @@
-package ingjulianvega.ximic.msscasuvisitbff.web.model;
+package ingjulianvega.ximic.msscasuvisitbff.web.model.response;
 
+import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VisitBffResponse {
+public class DetailVisitByIdResponse {
 
     private PatientDtoBffResponse patient;
     private CompanionDtoBffResponse companion;
