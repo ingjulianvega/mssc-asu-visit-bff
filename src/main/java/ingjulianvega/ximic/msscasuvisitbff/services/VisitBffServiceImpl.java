@@ -7,7 +7,7 @@ import ingjulianvega.ximic.msscasuvisitbff.exception.VisitBffException;
 import ingjulianvega.ximic.msscasuvisitbff.services.feign.*;
 import ingjulianvega.ximic.msscasuvisitbff.web.Mappers.VisitBffMapper;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitByIdResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -104,6 +104,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     @Override
     public VisitListBffResponse getSummaryByDate(OffsetDateTime date) {
         log.debug("getSummaryByDate()...");
+
         ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByDate(date);
         return null;
     }
@@ -116,7 +117,7 @@ public class VisitBffServiceImpl implements VisitBffService {
     }
 
     @Override
-    public DetailVisitByIdResponse getDetailById(UUID id) {
+    public DetailVisitResponse getDetailById(UUID id) {
         log.debug("getDetailById()...");
         ResponseEntity<VisitDto> visitDtoResponse = visitServiceFeignClient.getById(id);
 
@@ -131,22 +132,16 @@ public class VisitBffServiceImpl implements VisitBffService {
         Optional<UUID> optPatientId = Optional.ofNullable(visitDtoResponse.getBody().getPatientId());
         if(optPatientId.isPresent()) {
             patientDtoResponse = patientServiceFeignClient.getById(visitDtoResponse.getBody().getPatientId());
-            System.out.println(">> patientDtoResponse: " + patientDtoResponse);
             //DocumentType
             documentTypeDtoResponse = documentTypeServiceFeignClient.getById(patientDtoResponse.getBody().getDocumentTypeId());
-            System.out.println(">> documentTypeDtoResponse: " + documentTypeDtoResponse);
             //MaritalStatus
             maritalStatusDtoResponse = maritalStatusServiceFeignClient.getById(patientDtoResponse.getBody().getMaritalStatusId());
-            System.out.println(">> maritalStatusDtoResponse: " + maritalStatusDtoResponse);
             //Gender
             genderDtoResponse = genderServiceFeignClient.getById(patientDtoResponse.getBody().getGenderId());
-            System.out.println(">> genderDtoResponse: " + genderDtoResponse);
             //Occupation
             occupationDtoResponse = occupationServiceFeignClient.getById(patientDtoResponse.getBody().getOccupationId());
-            System.out.println(">> occupationDtoResponse: " + occupationDtoResponse);
             //Eps
             epsDtoResponse = epsServiceFeignClient.getById(patientDtoResponse.getBody().getEpsId());
-            System.out.println(">> epsDtoResponse: " + epsDtoResponse);
             //Arl
             arlDtoResponse = arlServiceFeignClient.getById(patientDtoResponse.getBody().getArlId());
         }else{
@@ -369,7 +364,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                                 .toCollection(ArrayList::new)))
                 .build();
 
-        return DetailVisitByIdResponse
+        return DetailVisitResponse
                 .builder()
                 .patient(PatientDtoBffResponse
                         .builder()

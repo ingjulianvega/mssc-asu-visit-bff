@@ -3,7 +3,7 @@ package ingjulianvega.ximic.msscasuvisitbff.web.controller;
 
 import ingjulianvega.ximic.msscasuvisitbff.services.VisitBffService;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.Visit;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitByIdResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitResponse;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitListBffResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ public class VisitBffController implements VisitBffI {
     }
 
     @Override
-    public ResponseEntity<DetailVisitByIdResponse> getDetailById(UUID id) {
+    public ResponseEntity<DetailVisitResponse> getDetailById(UUID id) {
         return new ResponseEntity<>(visitBffService.getDetailById(id), HttpStatus.OK);
     }
 
