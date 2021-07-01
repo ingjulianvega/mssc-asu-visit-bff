@@ -3,8 +3,8 @@ package ingjulianvega.ximic.msscasuvisitbff.web.controller;
 
 import ingjulianvega.ximic.msscasuvisitbff.services.VisitBffService;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.Visit;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitResponse;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitListBffResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailedVisitResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.SummaryVisitListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,22 +21,22 @@ public class VisitBffController implements VisitBffI {
     private final VisitBffService visitBffService;
 
     @Override
-    public ResponseEntity<VisitListBffResponse> getSummaryByPatientId(UUID patientId) {
+    public ResponseEntity<SummaryVisitListResponse> getSummaryByPatientId(UUID patientId) {
         return new ResponseEntity<>(visitBffService.getSummaryByPatientId(patientId), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<VisitListBffResponse> getSummaryByDate(OffsetDateTime date) {
+    public ResponseEntity<SummaryVisitListResponse> getSummaryByDate(OffsetDateTime date) {
         return new ResponseEntity<>(visitBffService.getSummaryByDate(date), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<VisitListBffResponse> getSummaryByDisease(UUID diseaseId) {
+    public ResponseEntity<SummaryVisitListResponse> getSummaryByDisease(UUID diseaseId) {
         return new ResponseEntity<>(visitBffService.getSummaryByDisease(diseaseId), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<DetailVisitResponse> getDetailById(UUID id) {
+    public ResponseEntity<DetailedVisitResponse> getDetailById(UUID id) {
         return new ResponseEntity<>(visitBffService.getDetailById(id), HttpStatus.OK);
     }
 

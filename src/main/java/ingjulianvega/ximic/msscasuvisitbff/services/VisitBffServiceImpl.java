@@ -7,7 +7,8 @@ import ingjulianvega.ximic.msscasuvisitbff.exception.VisitBffException;
 import ingjulianvega.ximic.msscasuvisitbff.services.feign.*;
 import ingjulianvega.ximic.msscasuvisitbff.web.Mappers.VisitBffMapper;
 import ingjulianvega.ximic.msscasuvisitbff.web.model.*;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailedVisitResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.SummaryVisitListResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -95,29 +96,163 @@ public class VisitBffServiceImpl implements VisitBffService {
     private final VisitBffMapper visitBffMapper;
 
     @Override
-    public VisitListBffResponse getSummaryByPatientId(UUID patientId) {
+    public SummaryVisitListResponse getSummaryByPatientId(UUID patientId) {
         log.debug("getSummaryByPatientId()...");
         ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByPatientId(patientId);
         return null;
     }
 
     @Override
-    public VisitListBffResponse getSummaryByDate(OffsetDateTime date) {
+    public SummaryVisitListResponse getSummaryByDate(OffsetDateTime date) {
         log.debug("getSummaryByDate()...");
+        ResponseEntity<VisitList> visitList = visitServiceFeignClient.getByDate(date);
 
-        ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByDate(date);
+//        visitList.getBody()
+//                .getVisitDtoList()
+//                .parallelStream()
+//                .map(visitDto -> {
+//
+//
+//                        //Patient
+//                        ResponseEntity<PatientDto> patientDtoResponse;
+//                        ResponseEntity<DocumentTypeDto> documentTypeDtoResponse;
+//                        ResponseEntity<MaritalStatusDto> maritalStatusDtoResponse;
+//                        ResponseEntity<GenderDto> genderDtoResponse;
+//                        ResponseEntity<OccupationDto> occupationDtoResponse;
+//                        ResponseEntity<EpsDto> epsDtoResponse;
+//                        ResponseEntity<ArlDto> arlDtoResponse;
+//                        Optional<UUID> optPatientId = Optional.ofNullable(visitDtoResponse.getBody().getPatientId());
+//                        if(optPatientId.isPresent()) {
+//                            patientDtoResponse = patientServiceFeignClient.getById(visitDtoResponse.getBody().getPatientId());
+//                            //DocumentType
+//                            documentTypeDtoResponse = documentTypeServiceFeignClient.getById(patientDtoResponse.getBody().getDocumentTypeId());
+//                            //MaritalStatus
+//                            maritalStatusDtoResponse = maritalStatusServiceFeignClient.getById(patientDtoResponse.getBody().getMaritalStatusId());
+//                            //Gender
+//                            genderDtoResponse = genderServiceFeignClient.getById(patientDtoResponse.getBody().getGenderId());
+//                            //Occupation
+//                            occupationDtoResponse = occupationServiceFeignClient.getById(patientDtoResponse.getBody().getOccupationId());
+//                            //Eps
+//                            epsDtoResponse = epsServiceFeignClient.getById(patientDtoResponse.getBody().getEpsId());
+//                            //Arl
+//                            arlDtoResponse = arlServiceFeignClient.getById(patientDtoResponse.getBody().getArlId());
+//                        }else{
+//                            throw new VisitBffException("","No se pudo obtener PatientId");
+//                        }
+//
+//                        //Visit type
+//                        ResponseEntity<VisitTypeDto> visitTypeDtoResponse = null;
+//                        Optional<UUID> optVisitTypeId = Optional.ofNullable(visitDtoResponse.getBody().getVisitTypeId());
+//                        if (optVisitTypeId.isPresent()) {
+//
+//                            visitTypeDtoResponse = visitTypeServiceFeignClient.getById(visitDtoResponse.getBody().getVisitTypeId());
+//                        } else {
+//                            throw new VisitBffException("", "No se pudo obtener VisitTypeId");
+//                        }
+//
+//                        //Billing
+//                        ResponseEntity<BillingDto> billingDtoResponse = null;
+//                        Optional<UUID> optBillingId = Optional.ofNullable(visitDtoResponse.getBody().getBillingId());
+//                        if (optBillingId.isPresent()) {
+//                            billingDtoResponse = billingFeignClient.getById(visitDtoResponse.getBody().getBillingId());
+//                        } else {
+//                            throw new VisitBffException("", "No se pudo obtener BillingId");
+//                        }
+//
+//                        //Disease
+//                        ResponseEntity<DiseaseDto> diseaseDtoResponse = null;
+//                        Optional<UUID> optDiseaseId = Optional.ofNullable(visitDtoResponse.getBody().getDiseaseId());
+//                        if (optDiseaseId.isPresent()) {
+//                            diseaseDtoResponse = diseaseServiceFeignClient.getById(visitDtoResponse.getBody().getDiseaseId());
+//                        } else {
+//                            throw new VisitBffException("", "No se pudo obtener DiseaseId");
+//                        }
+//
+//                        //Treatment
+//                        ResponseEntity<TreatmentList> treatmentResponse = treatmentServiceFeignClient.getByVisitId(id);
+//
+//                        TreatmentListBffResponse treatmentListBffResponse = TreatmentListBffResponse
+//                                .builder()
+//                                .treatmentList(treatmentResponse
+//                                        .getBody()
+//                                        .getTreatmentDtoList()
+//                                        .parallelStream()
+//                                        .map(treatmentDto -> {
+//                                            //Medicine
+//                                            ResponseEntity<MedicineDto> medicineDtoResponse = medicineServiceFeignClient.getById(treatmentDto.getMedicineId());
+//
+//                                            //Concentration
+//                                            ResponseEntity<ConcentrationDto> concentrationDtoResponse = concentrationServiceFeignClient.getById(treatmentDto.getConcentrationId());
+//
+//                                            //AdministrationMethod
+//                                            ResponseEntity<AdministrationMethodDto> administrationMethodDtoResponse = administrationMethodServiceFeignClient.getById(treatmentDto.getAdministrationMethodId());
+//
+//                                            //Duration
+//                                            ResponseEntity<DurationDto> durationDtoResponse = durationServiceFeignClient.getById(treatmentDto.getDurationId());
+//
+//                                            return TreatmentDtoBffResponse
+//                                                    .builder()
+//                                                    .id(treatmentDto.getId())
+//                                                    .visitId(id)
+//                                                    .medicine(medicineDtoResponse.getBody())
+//                                                    .concentrationQuantity(treatmentDto.getConcentrationQuantity())
+//                                                    .concentration(concentrationDtoResponse.getBody())
+//                                                    .administrationMethod(administrationMethodDtoResponse.getBody())
+//                                                    .durationQuantity(treatmentDto.getDurationQuantity())
+//                                                    .duration(durationDtoResponse.getBody())
+//                                                    .observations(treatmentDto.getObservations())
+//                                                    .build();
+//                                        })
+//                                        .collect(Collectors
+//                                                .toCollection(ArrayList::new)))
+//                                .build();
+//
+//                        //Remission
+//                        ResponseEntity<RemissionList> remissionResponse = remissionServiceFeignClient.getByVisitId(id);
+//
+//                        RemissionListBffResponse remissionListBffResponse = RemissionListBffResponse
+//                                .builder()
+//                                .remissionList(remissionResponse
+//                                        .getBody()
+//                                        .getRemissionDtoList()
+//                                        .parallelStream()
+//                                        .map(remissionDto -> {
+//                                            //RemissionType
+//                                            ResponseEntity<RemissionTypeDto> remissionTypeDtoResponse = remissionTypeServiceFeignClient.getById(remissionDto.getRemissionTypeId());
+//
+//                                            return RemissionDtoBffResponse
+//                                                    .builder()
+//                                                    .id(remissionDto.getId())
+//                                                    .visitId(id)
+//                                                    .remissionType(remissionTypeDtoResponse.getBody())
+//                                                    .observations(remissionDto.getObservations())
+//                                                    .build();
+//                                        })
+//                                        .collect(Collectors
+//                                                .toCollection(ArrayList::new)))
+//                                .build();
+//
+//
+//                    }
+//
+//
+//                )
+//                .collect(Collectors
+//                .toCollection(ArrayList::new));
+
+
         return null;
     }
 
     @Override
-    public VisitListBffResponse getSummaryByDisease(UUID diseaseId) {
+    public SummaryVisitListResponse getSummaryByDisease(UUID diseaseId) {
         log.debug("getSummaryByDisease()...");
         ResponseEntity<VisitList> responseEntity = visitServiceFeignClient.getByDiseaseId(diseaseId);
         return null;
     }
 
     @Override
-    public DetailVisitResponse getDetailById(UUID id) {
+    public DetailedVisitResponse getDetailById(UUID id) {
         log.debug("getDetailById()...");
         ResponseEntity<VisitDto> visitDtoResponse = visitServiceFeignClient.getById(id);
 
@@ -364,7 +499,7 @@ public class VisitBffServiceImpl implements VisitBffService {
                                 .toCollection(ArrayList::new)))
                 .build();
 
-        return DetailVisitResponse
+        return DetailedVisitResponse
                 .builder()
                 .patient(PatientDtoBffResponse
                         .builder()

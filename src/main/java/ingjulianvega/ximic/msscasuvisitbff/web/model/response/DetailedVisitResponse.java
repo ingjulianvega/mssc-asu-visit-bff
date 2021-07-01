@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DetailVisitResponse {
+public class DetailedVisitResponse {
 
     private PatientDtoBffResponse patient;
     private CompanionDtoBffResponse companion;

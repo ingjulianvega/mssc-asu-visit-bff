@@ -1,6 +1,6 @@
-package ingjulianvega.ximic.msscasuvisitbff.web.model;
+package ingjulianvega.ximic.msscasuvisitbff.web.model.response;
 
-import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailedVisitResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VisitListBffResponse implements Serializable {
+public class SummaryVisitListResponse implements Serializable {
 
     static final long serialVersionUID = 6840731619737550145L;
 
-    public ArrayList<DetailVisitResponse> detailVisitResponseList;
+    public ArrayList<SummaryVisitResponse> detailedVisitResponseList;
 }

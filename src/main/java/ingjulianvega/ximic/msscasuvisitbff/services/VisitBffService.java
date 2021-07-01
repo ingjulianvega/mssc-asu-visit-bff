@@ -2,21 +2,21 @@ package ingjulianvega.ximic.msscasuvisitbff.services;
 
 
 import ingjulianvega.ximic.msscasuvisitbff.web.model.Visit;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailVisitResponse;
-import ingjulianvega.ximic.msscasuvisitbff.web.model.VisitListBffResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.DetailedVisitResponse;
+import ingjulianvega.ximic.msscasuvisitbff.web.model.response.SummaryVisitListResponse;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public interface VisitBffService {
 
-    VisitListBffResponse getSummaryByPatientId(UUID patientId);
+    SummaryVisitListResponse getSummaryByPatientId(UUID patientId);
 
-    VisitListBffResponse getSummaryByDate(OffsetDateTime date);
+    SummaryVisitListResponse getSummaryByDate(OffsetDateTime date);
 
-    VisitListBffResponse getSummaryByDisease(UUID diseaseId);
+    SummaryVisitListResponse getSummaryByDisease(UUID diseaseId);
 
-    DetailVisitResponse getDetailById(UUID id);
+    DetailedVisitResponse getDetailById(UUID id);
 
     void updateById(UUID id, Visit visit);
 
