@@ -45,10 +45,4 @@ public class VisitBffController implements VisitBffI {
         visitBffService.updateById(id, visit);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    @Override
-    public ResponseEntity<Void> deleteById(@NotNull UUID id) {
-        visitBffService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
 }

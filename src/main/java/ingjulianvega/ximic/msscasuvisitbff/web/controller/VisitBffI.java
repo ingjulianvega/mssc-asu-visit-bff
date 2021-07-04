@@ -88,17 +88,4 @@ public interface VisitBffI {
     ResponseEntity<Void> updateById(@Parameter(in = ParameterIn.PATH, description = "The visit id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id,
                                     @Parameter(in = ParameterIn.DEFAULT, description = "visit's attributes", required = true, schema = @Schema()) @NotNull @Valid @RequestBody Visit visit);
 
-
-    @Operation(summary = "Endpoint to delete a visit", description = "Deletes a visit", tags = {"visit"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "The operation was successful."),
-
-            @ApiResponse(responseCode = "400", description = "400 - business error", content = @Content(schema = @Schema(implementation = ApiError.class))),
-
-            @ApiResponse(responseCode = "500", description = "500 - server error", content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    @RequestMapping(value = "/{id}",
-            produces = {"application/json"},
-            method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteById(@Parameter(in = ParameterIn.PATH, description = "The visit id", required = true, schema = @Schema()) @NotNull @PathVariable("id") UUID id);
-
 }

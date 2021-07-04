@@ -20,5 +20,4 @@ public interface VisitBffService {
 
     void updateById(UUID id, Visit visit);
 
-    void deleteById(UUID id);
 }
