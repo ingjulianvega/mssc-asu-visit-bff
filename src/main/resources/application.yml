@@ -70,16 +70,13 @@ server:
   servlet:
     context-path: /asu/v1/visit-bff
 #Logging
-logging:
-  level:
-    ingjulianvega:
-      ximic: DEBUG
+#logging:
+#  level:
+#    ingjulianvega:
+#      ximic: DEBUG
 #Exceptions
 visit-bff:
-  success: The operation was successful.
-  prefix: 'VISIT-BFF:'
-  error:
-    general: There was an unexpected error. Please try again.
+  api: @artifactId@
 log4j:
   logger:
     org:
